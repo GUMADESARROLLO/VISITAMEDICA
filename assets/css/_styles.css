@@ -1,0 +1,212 @@
+@font-face {
+    font-family: 'robotoblack';
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-black-webfont.eot');
+    src: url('/VISITAMEDICAVISITAMEDICA/assets/fonts/Robot/roboto-black-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-black-webfont.woff2') format('woff2'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-black-webfont.woff') format('woff'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-black-webfont.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-black-webfont.svg#robotoblack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotobold';
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-bold-webfont.eot');
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-bold-webfont.woff2') format('woff2'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-bold-webfont.woff') format('woff'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-bold-webfont.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-bold-webfont.svg#robotobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotomedium';
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-medium-webfont.eot');
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-medium-webfont.woff2') format('woff2'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-medium-webfont.woff') format('woff'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-medium-webfont.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-medium-webfont.svg#robotomedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotocondensed';
+    src:url('/VISITAMEDICA/assets/fonts/roboto/RobotoCondensed-Bold.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/roboto/RobotoCondensed-BoldItalic.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/roboto/RobotoCondensed-Italic.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/roboto/RobotoCondensed-Light.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/roboto/RobotoCondensed-LightItalic.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/roboto/RobotoCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotoregular';
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-regular-webfont.eot');
+    src: url('/VISITAMEDICA/assets/fonts/Robot/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-regular-webfont.woff2') format('woff2'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-regular-webfont.woff') format('woff'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-regular-webfont.ttf') format('truetype'),
+    url('/VISITAMEDICA/assets/fonts/Robot/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.menu-center {
+	width: 70%;
+	margin: 0 auto;
+}
+
+#_footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:25px;
+   width:100%;
+   margin-bottom: 0px;
+   font-size: 11px;
+}
+
+.logo-img {
+  background-color: white;
+  width: 50px;
+  padding: 10px 10px;
+  margin-top: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.totales {
+  font-family: 'robotobold';
+  text-transform: uppercase;
+  color: #000000;
+  font-size: 28px;
+}
+
+.totales-content {
+  padding: 10px 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.content-data {
+  /*height: 300px;*/
+}
+
+/*LOADER*/
+.loader-1, .load-1 {
+  position: absolute;
+  width: 100px;
+  color: white;
+  line-height: 100px;
+  text-align: center;
+}
+
+.loader-1 {
+  z-index: 1000;
+  background-color: white;
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+}
+
+.load-1 {
+  background: black;
+  position: fixed;
+  z-index: 999;  
+  top: -25%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background: #000;  
+  will-change: opacity;
+  opacity: 0.5;
+}
+/*FIN LOADER*/
+
+.title {
+  font-family: 'robotobold';
+  font-weight: bold;
+  font-size: 20px;
+}
+/*ESTILO DATATABLE*/
+.dt-center {
+  text-align: center;
+}
+
+.dt-right {
+  text-align: right;
+}
+/*FIN ESTILO DATATABLE*/
+
+/*INPUT*/
+#buscar, #txtBuscar, #buscar3M, #txtBuscarMed, #txtBuscarFarm {
+  height: 40px;
+  width: 100%;
+  padding: 0px 10px;
+  border: 1px solid #e0e0e0;
+  margin: 0;
+  text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  box-sizing: border-box;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+  border-radius: 4px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  box-shadow: none;
+  color: #000;
+  font-size: 1em;
+  font-weight: 400;
+  direction: ltr;
+}
+
+#buscar:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+#buscar3M:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+/*ESTILO RUTA*/
+.ruta {
+  font-size: 45px;
+  font-family: 'robotobold';
+  padding: 10px 10px 10px 10px;
+  background-color: #bdbdbd;
+}
+
+#temporal {
+  width: 70%;
+  min-height: 75%;
+}
+
+#tblVtsTotales_filter {
+ display: none;
+}
+
+#tblFarmacias_filter {
+  display: none;
+}
+
+#temporal1 {
+  margin: 0 auto;
+  max-width: 20%;
+}
