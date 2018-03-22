@@ -1,7 +1,7 @@
 .login-content {
 	width: 30%;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 80px;
 	height: auto;
 }
 
@@ -71,13 +71,24 @@ body {
 
 @media only screen and (max-width: 1020px) {
 	.login-content {
-		width: 100%;
+		width: 50%;
 		margin: 0 auto;
-		margin-top: 75px;
+		margin-top: 200px;
 	}
-
 	.img-responsive {
 	    width: 30%;
 	    height: auto;
 	}
+}
+
+@media only screen and (max-width: 720px) {
+  .login-content {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .img-responsive {
+      width: 30%;
+      height: auto;
+  }
 }

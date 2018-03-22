@@ -1,11 +1,11 @@
-<div class="container"><br><br>
-    <div class='row center totales-content'>
-        <div class='col s12 m2'>
+<div class="container">
+    <div class='row totales-content'>
+        <div class='col s12 m6'>
             <span class='totales'><?php echo $ruta ?></span><br>
             <span>Ruta</span>
         </div>
-        <div class='col s12 m5'>
-            <span class='totales'>Historial 3 Meses</span><br>
+        <div class='col s12 m6'>
+            <span class='totales' style="float: right">Historial 3 Meses</span><br>
         </div>
     </div>
 	<div class="row">
@@ -17,7 +17,7 @@
 							<span class="card-title"><i class="small material-icons">shopping_cart</i>Ventas</span>
 						</div>
 						<div class="col s12 m6">
-							<input placeholder="Buscar" name="buscar2" id="buscar2" type="text">		
+							<input placeholder="Buscar" name="buscar3M" id="buscar3M" type="text">	
 						</div>
 					</div>
 				</div>

@@ -1,11 +1,11 @@
 $(document).ready(function() {
     $('.modal').modal();
-
     $('select').material_select();
     $(".button-collapse").sideNav();
-	$(".nav-wrapper ul li a").each(function() {
+	
+    $(".nav-wrapper ul li a").each(function() {
 		
-		if(this.href.trim() == window.location){
+		if(this.href.trim() == window.location) {
 			$(this).parent().addClass("active");
 		}
 	}); 

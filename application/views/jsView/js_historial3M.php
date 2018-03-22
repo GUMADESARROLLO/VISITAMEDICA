@@ -113,14 +113,14 @@ function changeTabs(tipo) {
 	})
 }
 var tipo1 = "";
-$("#buscar2").on('change', function () {
+$("#buscar3M").on('change', function () {
 	loadingPage(true);
 	var filtro = $(this).val();
 	var ruta = $('#ruta').val();
 	var contenido="";
 	if (filtro!="") {    
 	    $.ajax({
-	        url: '../busqueda2/' + filtro + '/' + tipo1 + '/' + ruta,
+	        url: '../busqueda3M/' + filtro + '/' + tipo1 + '/' + ruta,
 	        type: 'post',
 	        async: true,
 	        success: function(data) {

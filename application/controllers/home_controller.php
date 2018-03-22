@@ -13,7 +13,7 @@ class home_controller extends CI_Controller {
 
 	public function index() {
         $this->load->view('header/header');
-        $this->load->view('home/home');
+        $this->load->view('Pages/home/home');
         $this->load->view('footer/footer');
         $this->load->view('jsView/js_home');
 	}
@@ -26,7 +26,7 @@ class home_controller extends CI_Controller {
         $data['dv'] = $this->home_model->detalleVentasXRuta($ruta);
 
         $this->load->view('header/header');
-        $this->load->view('home/detalleVentas', $data);
+        $this->load->view('Pages/home/detalleVentas', $data);
         $this->load->view('footer/footer');
         $this->load->view('jsView/js_home');
     }
@@ -35,16 +35,16 @@ class home_controller extends CI_Controller {
         $this->home_model->listandoData($tipo, $ruta);
     }
 
-    public function tipoData2($tipo, $ruta) {
-        $this->home_model->listandoData2($tipo, $ruta);
+    public function tipoData3M($tipo, $ruta) {
+        $this->home_model->listandoData3M($tipo, $ruta);
     }
 
     public function buscarPorFiltro($filtro, $tipo, $ruta) {
         $this->home_model->buscarPorFiltro($filtro, $tipo, $ruta);
     }
 
-    public function buscarPorFiltro2($filtro, $tipo, $ruta) {
-        $this->home_model->buscarPorFiltro2($filtro, $tipo, $ruta);
+    public function buscarPorFiltro3M($filtro, $tipo, $ruta) {
+        $this->home_model->buscarPorFiltro3M($filtro, $tipo, $ruta);
     }
 
     public function detallesVentasM($val, $tipo, $ruta) {
@@ -55,7 +55,7 @@ class home_controller extends CI_Controller {
         $data['ruta'] = $ruta;
 
         $this->load->view('header/header');
-        $this->load->view('3M/historial3m', $data);
+        $this->load->view('Pages/3M/historial3m', $data);
         $this->load->view('footer/footer');
         $this->load->view('jsView/js_historial3M');
     }

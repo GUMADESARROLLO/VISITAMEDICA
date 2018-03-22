@@ -65,7 +65,8 @@ function listandoVst3M() {
 			{ "title": "RUTA", "data": "RUTA" },
 			{ "title": "VENTA", "data": "VENTA", render: $.fn.dataTable.render.number( ',', '.', 2 ) },
 			{ "title": "META", "data": "META", render: $.fn.dataTable.render.number( ',', '.', 2 )},
-			{ "title": "VST 3M", "data": "VST3M", render: $.fn.dataTable.render.number( ',', '.', 2 ) }		
+			{ "title": "VST 3M", "data": "VST3M", render: $.fn.dataTable.render.number( ',', '.', 2 ) },
+			{ "title": "RESTANTE", "data": "RES" }
 			/*{ "title": "GRAF", render: function (data) {				
                 
                 grafica(25, 95);
@@ -75,26 +76,12 @@ function listandoVst3M() {
         ],
         "columnDefs": [
         	{"className": "dt-center", "targets": [0]},
-        	{"className": "dt-right", "targets": [ 1, 2, 3 ]}
+        	{"className": "dt-right", "targets": [ 1, 2, 3, 4 ]}
       	],
         "fnInitComplete": function () {        	
         	loadingPage(false);
         }
 	});
-}
-
-function grafica(p1, p2) {
-	$("#redBecomesBlue").percircle({percent: p1,text: p2});
-	changeCircle(p2);
-}
-
-function changeCircle(p2){
-    $("#redBecomesBlue").percircle({text:''});
-    $("#redBecomesBlue").percircle({
-        text: "",
-        percent: p2,
-        progressBarColor: "#1252c0"
-    });
 }
 
 function detalleTalonario(ruta) {
