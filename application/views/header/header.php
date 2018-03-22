@@ -23,14 +23,14 @@
 				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="<?php echo base_url("index.php/home");?>">Inicio</a></li>
-					<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>
-					<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>
+					<!--<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>-->
+					<!--<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>-->
 					<li><a href="<?php echo base_url("index.php/salir");?>">Cerrar sesión</a></li>
 				</ul>
 				<ul class="side-nav" id="mobile-demo">
 					<li><a href="<?php echo base_url("index.php/home");?>">Inicio</a></li>
-					<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>
-					<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>
+					<!--<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>-->
+					<!--<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>-->
 					<li><a href="<?php echo base_url("index.php/salir");?>">Cerrar sesión</a></li>
 				</ul>
 			</div>
