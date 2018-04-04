@@ -33,7 +33,7 @@
 										<div class="row">
 											<div class="input-field col s12 m12">
 												<i class="material-icons prefix">room</i>
-												<input id="direccion" type="text" class="validate edit" readonly value="'.$dt[0]['Direccion'].'">
+												<textarea id="direccion" type="text" class="validate materialize-textarea edit" readonly >'.$dt[0]['Direccion'].'</textarea>
 												<label for="direccion">Dirección</label>
 											</div>
 										</div>

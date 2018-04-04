@@ -15,6 +15,11 @@ $(document).ready(function() {
     }
 });
 
+$("#txtBuscarFarm").on("keyup", function () {
+    var table = $("#tblFarmacias").DataTable();
+    table.search(this.value).draw();
+});
+
 $("#editarFarmacia").click( function() {
     $(".edit").removeAttr("readonly");
     $(".editChk").removeAttr("disabled");
