@@ -1,20 +1,30 @@
 <script type="text/javascript">
 $(document).ready(function() {
-    var pathname = window.location.pathname;
+  var pathname = window.location.pathname;
     if (pathname.match(/farmacias.*/)) {
         listandoFarmacias();
     }else {
         $("#ok").hide();
+        inicializaControlFecha();
+        buttonReturn();
+        $(".nav-wrapper ul li a").each(function() {
+          if(this.href.trim() == "http://localhost/vm/index.php/farmacias") {
+            $(this).parent().addClass("active");
+          }
+        });
     }
 });
 
 $("#editarFarmacia").click( function() {
     $(".edit").removeAttr("readonly");
+    $(".editChk").removeAttr("disabled");
     $("#editarFarmacia").hide();
-    $("#opcButtons").append(`<a href="#!" id="ok" onclick="bloquearControles()" class="pulse btn-floating waves-effect waves-light teal accent-4"><i class="material-icons">done</i></a>`);
+    $("#opcButtons").append(`<a href="#!" id="ok" onclick="bloquearControles()" class="pulse btn-floating waves-effect waves-light teal accent-4"><i class="material-icons">save</i></a>`);
 });
 
 function bloquearControles() {
+  var result = validarControles();
+  if (result) {
     swal({
       title: '¿Desea guardar los cambios?',
       text: "Los cambios se aplicaran en las demas plataformas",
@@ -26,70 +36,98 @@ function bloquearControles() {
       confirmButtonText: 'Sí, guardar'
     }).then((result) => {
       if (result.value) {
-        result = guardarCambiosFarmacia();
-        if (result==true) {
-            swal(
-              'Guardado con éxito',
-              'Se aplicaron los cambios',
-              'success'
-            )
-            $(".edit").attr("readonly","readonly");
-            $("#ok").remove();
-            $("#editarFarmacia").show();
-        }else {
-            Materialize.toast("Ups...ocurrio un problema al tratar de actualizar!", 4000, 'rounded');
-        }
+        var res = guardarCambiosFarmacia();
       }else {
-
+        $(".edit").attr("readonly","readonly");
+        $(".editChk").attr("disabled", "disabled");
+        $("#ok").remove();
+        $("#editarFarmacia").show();
       }
     });
+  }
 };
 
 function guardarCambiosFarmacia() {
-    var result = false;
-    var dataFarmacia = new Array();
+  var dataFarmacia = {
+    "0":[
+      {
+        "mUID":parseInt($("#idFarmacia").val()),
+        "mNFR":$("#nombreFarmacia").val(),
+        "mNPR":$("#nombrePropietario").val(),
+        "mDIR":$("#direccion").val(),
+        "mFAN":$('#fechaAniversario').val(),
+        "mTFR":$("#telfFarmacia").val(),
+        "mTFP":$("#telfPropietario").val(),
+        "mHAT":$("#horaAtencion").val(),
+        "mRCP":$("#respCompra").val(),
+        "mTRC":$("#telfRespCompra").val(),
+        "mCDP":$("#cantDependiente").val(),
+        "mPCP":$("#potencialMensualComp").val(),
+        "mDPF":$("#diasPagoFact").val(),
+        "mRVC":$("#respVencidos").val(),
+        "mRCJ":$("#respCanjes").val(),
+        "mNDM":$("#NumDepMostrador").val(),
+        "mPPP":$('#chkppp').is(':checked') ? '1' : '0',
+        "mEBD":$('#chkebd').is(':checked') ? '1' : '0',
+        "mPIP":$('#chkpi').is(':checked') ? '1' : '0',
+        "mCCO":$('#chkcc').is(':checked') ? '1' : '0',
+        "Ruta":"007"
+      }
+    ]
+  }
 
-    var nFarmacia=$("#nombreFarmacia").val();
-    var nPropietario=$("#nombrePropietario").val();
-    var direccion=$("#direccion").val();
-    var fAniversario=$("#fechaAniversario").val();
-    var tFarmacia=$("#telfFarmacia").val();
-    var tPropietario=$("#telfPropietario").val();
-    var hAtencion=$("#horaAtencion").val();
-    var rCompra=$("#respCompra").val();
-    var tRespCompra=$("#telfRespCompra").val();
-    var cDependiente=$("#cantDependiente").val();
-    var pMensualComp=$("#potencialMensualComp").val();
-    var dPagoFact=$("#diasPagoFact").val();
-    var rVencidos=$("#respVencidos").val();
-    var rCanjes=$("#respCanjes").val();
-    var nDepMostrador=$("#NumDepMostrador").val();
-    var pProgPuntos=1;
-    var eBenfDepend=1;
-    var pImpulsadoras=1;
-    var codFarmacia=11
+  var form_data = {
+      data : dataFarmacia
+  };
 
-    dataFarmacia[0]=codFarmacia+","+nFarmacia+","+nPropietario+","+direccion+","+fAniversario+","+tFarmacia+","+tPropietario+","+hAtencion+","+rCompra+","+tRespCompra+","+cDependiente+","+pMensualComp+","+dPagoFact+","+rVencidos+","+rCanjes+","+nDepMostrador+","+pProgPuntos+","+eBenfDepend+","+pImpulsadoras;
+  $.ajax({
+      url: "../guardarCambiosFarmacia",
+      type: 'post',
+      async: true,
+      data: form_data,
+      success: function(data) {
+          if (data==true) {
+              swal(
+                'Guardado con éxito',
+                'Se aplicaron los cambios',
+                'success'
+              )
+              $(".edit").attr("readonly","readonly");
+              $(".editChk").attr("disabled", "disabled");
+              $("#ok").remove();
+              $("#editarFarmacia").show();
+          }else {
+              Materialize.toast("Ups...ocurrio un problema al tratar de actualizar!", 4000, 'rounded');
+          }
+      }
+  });  
+}
 
-    var form_data = {
-        data: dataFarmacia
-    };
-        
-    /*pProgPuntos:$("#").val(),
-    eBenfDepend:$("#").val(),
-    pImpulsadoras:$("#").val()*/
-    $.ajax({
-        url: "../guardarCambiosFarmacia",
-        type: 'post',
-        async: true,
-        data: form_data,
-        success: function(data) {
-            if (data=='1') {
-                result=true;
-            }
-        }
-    });
-    return result;
+function validarControles() {
+  var result = false;
+
+  mNFR = $("#nombreFarmacia").val();
+  mNPR = $("#nombrePropietario").val();
+  mDIR = $("#direccion").val();
+  mFAN = $('#fechaAniversario').val();
+  mTFR = $("#telfFarmacia").val();
+  mTFP = $("#telfPropietario").val();
+  mHAT = $("#horaAtencion").val();
+  mRCP = $("#respCompra").val();
+  mTRC = $("#telfRespCompra").val();
+  mCDP = $("#cantDependiente").val();
+  mPCP = $("#potencialMensualComp").val();
+  mDPF = $("#diasPagoFact").val();
+  mRVC = $("#respVencidos").val();
+  mRCJ = $("#respCanjes").val();
+  mNDM = $("#NumDepMostrador").val();
+
+  if (mNFR=="" || mNPR=="" || mDIR=="" || mFAN=="" || mTFR=="" || mTFP=="" || mHAT=="" || mRCP=="" || mTRC=="" || mCDP=="" || mPCP=="" || mDPF=="" || mRVC=="" || mRCJ=="" || mNDM=="") {
+    Materialize.toast("Ups... Aún Hay datos sin completar", 4000, 'rounded');    
+  }else {
+    result = true;
+  }
+  return result;
 }
 
 function listandoFarmacias() {
@@ -134,9 +172,11 @@ function listandoFarmacias() {
 			{ "title": "PROPIETARIO", "data": "NOMBREPROPIETARIO" }
         ],
         "columnDefs": [
-        	{"className": "dt-center", "targets": [0, 1, 2, 3]},
+        	{"className": "dt-center", "targets": [0, 3]},
+          {"className": "dt-left", "targets": [ 1, 2] },
+          { "width": "20%", "targets": 1 }
       	],
-        "fnInitComplete": function () {        	
+        "fnInitComplete": function () {   	
         	loadingPage(false);
         }
 	});
@@ -145,5 +185,4 @@ function listandoFarmacias() {
 function detalleFarmacia(codFarmacia) {
     window.location.href = "informacionFarmacia/" + codFarmacia;
 }
-
 </script>

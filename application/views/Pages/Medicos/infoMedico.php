@@ -4,7 +4,7 @@
 			<div class="card-content">
 			    <div class='row totales-content'>
 			        <div class='col s12 m6'>
-						<span class="card-title"><i class="small material-icons">import_contacts</i> Información Farmacia</span>
+						<span class="card-title"><i class="small material-icons">person</i> Información Médico</span>
 			        </div>
 			    </div>
 				<div class="row">
@@ -25,23 +25,30 @@
 										</div>
 										<div class="row">
 											<div class="input-field col s12 m12">
-												<i class="material-icons prefix">store</i>
+												<i class="material-icons prefix">person</i>
 												<input id="nombreFarmacia" type="text" class="validate edit" readonly value="'.$dt[0]['NombreFarmacia'].'">
-												<label for="nombreFarmacia">Nombre Farmacia</label>
+												<label for="nombreFarmacia">Nombre Completo</label>
 											</div>
 										</div>
 										<div class="row">
 											<div class="input-field col s12 m12">
-												<i class="material-icons prefix">room</i>
+												<i class="material-icons prefix">work</i>
 												<input id="direccion" type="text" class="validate edit" readonly value="'.$dt[0]['Direccion'].'">
-												<label for="direccion">Dirección</label>
+												<label for="direccion">Especialidad</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="input-field col s12 m12">
+												<i class="material-icons prefix">location_on</i>
+												<input id="direccion" type="text" class="validate edit" readonly value="'.$dt[0]['Direccion'].'">
+												<label for="direccion">Direccion</label>
 											</div>
 										</div>
 										<div class="row">
 											<div class="input-field col s12 m6">
-												<i class="material-icons prefix">account_circle</i>
-												<input id="nombrePropietario" type="tel" class="validate edit" readonly value="'.$dt[0]['NombrePropietario'].'" >
-												<label for="nombrePropietario">Nombre Propietario</label>
+												<i class="material-icons prefix">date_range</i>
+												<input id="fechaAniversario" type="text" class="input-fecha" readonly value="'.date("d/m/Y", strtotime($dt[0]['FechaAniversario'])).'">
+												<label for="fechaAniversario">Fecha nacimiento</label>
 											</div>
 											<div class="input-field col s12 m6">
 												<i class="material-icons prefix">phone</i>

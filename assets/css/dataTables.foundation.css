@@ -151,7 +151,7 @@ table {
   table tr td {
     color: #222222;
     /*font-size: 0.875rem;*/
-    font-size: 15px;
+    font-size: 14px;
     padding: 0.5625rem 0.625rem;
     text-align: left; }
   table tr.even, table tr.alt, table tr:nth-of-type(even) {

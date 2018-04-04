@@ -23,37 +23,15 @@ class farmacias_controller extends CI_Controller {
 	}
 
 	public function detalleFarmacia($codFarmacia) {
-		$data['codFarmacia'] = $codFarmacia;
+        $data['dt'] = $this->farmacias_model->informacionFarmacia($codFarmacia);
 
         $this->load->view('header/header');
-        $this->load->view('Pages/Farmacias/infoFarmacia');
+        $this->load->view('Pages/Farmacias/infoFarmacia', $data);
         $this->load->view('footer/footer');
         $this->load->view('jsView/js_farmacias');
 	}
 
 	public function guardarCambiosFarmacia() {
-        /*$array = array(
-            "codFarmacia" => $this->input->post('codFarmacia'),
-            "nFarmacia" => $this->input->post('nFarmacia'),
-            "nPropietario" => $this->input->post('nPropietario'),
-            "direccion" => $this->input->post('direccion'),
-            "fAniversario" => $this->input->post('fAniversario'),
-            "tFarmacia" => $this->input->post('tFarmacia'),
-            "tPropietario" => $this->input->post('tPropietario'),
-            "hAtencion" => $this->input->post('hAtencion'),
-            "rCompra" => $this->input->post('rCompra'),
-            "tRespCompra" => $this->input->post('tRespCompra'),
-            "cDependiente" => $this->input->post('cDependiente'),
-            "pMensualComp" => $this->input->post('pMensualComp'),
-            "dPagoFact" => $this->input->post('dPagoFact'),
-            "rVencidos" => $this->input->post('rVencidos'),
-            "rCanjes" => $this->input->post('rCanjes'),
-            "nDepMostrador" => $this->input->post('nDepMostrador'),
-            "pProgPuntos" => $this->input->post('pProgPuntos'),
-            "eBenfDepend" => $this->input->post('eBenfDepend'),
-            "pImpulsadoras" => $this->input->post('pImpulsadoras')
-        );*/
-
         $this->farmacias_model->guardandoCambiosFarmacia($this->input->post('data'));
 	}
 }

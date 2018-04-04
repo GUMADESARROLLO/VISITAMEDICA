@@ -5,6 +5,7 @@ $(document).ready(function() {
     	listandoVst3M();
     }else if (pathname.match(/detalleVentas.*/)) {
     	changeTabs('1');
+    	buttonReturn();
     };
 	$('.modal').modal();
 	$('#return1').hide();
@@ -37,6 +38,7 @@ function listandoVst3M() {
         "order": [[ 0, "asc"]],
         "ordering": true,
         "info": false,
+        "data": [],
         "bPaginate": true,
         "bfilter": false,
         "lengthMenu": [[10,20,30,-1], [10,20,30,"Todo"]],
@@ -65,20 +67,14 @@ function listandoVst3M() {
 			{ "title": "RUTA", "data": "RUTA" },
 			{ "title": "VENTA", "data": "VENTA", render: $.fn.dataTable.render.number( ',', '.', 2 ) },
 			{ "title": "META", "data": "META", render: $.fn.dataTable.render.number( ',', '.', 2 )},
-			{ "title": "VST 3M", "data": "VST3M", render: $.fn.dataTable.render.number( ',', '.', 2 ) },
-			{ "title": "RESTANTE", "data": "RES" }
-			/*{ "title": "GRAF", render: function (data) {				
-                
-                grafica(25, 95);
-                var cont = $("#temporal1").html();
-                data = cont;
-                return data; } },*/
+			{ "title": "RESTANTE", "data": "RES" },
+			{ "title": "VST 3M", "data": "VST3M", render: $.fn.dataTable.render.number( ',', '.', 2 ) }
         ],
         "columnDefs": [
         	{"className": "dt-center", "targets": [0]},
         	{"className": "dt-right", "targets": [ 1, 2, 3, 4 ]}
       	],
-        "fnInitComplete": function () {        	
+        "fnInitComplete": function (data) {        	 	
         	loadingPage(false);
         }
 	});
@@ -153,23 +149,23 @@ $("#buscar").on('change', function () {
 					$("#ctsArt").empty();
 					var color="";
 			            $.each(JSON.parse(data), function(i, item) {
-			            	var pend = (item['mCant'])-(item['mCnAc']);
-
-
-
-			            	contenido += `<li class="collection-item avatar">
-			  								<i class="material-icons circle">local_mall</i>
-			  								<span class="title">`+item['mDesc']+`</span><br>
-			  								`+item['mArti']+`
-											<div class="row">
-												<div class="col s12 m4"><span><b>Cuota:</b> `+item['mCant']+`</span></div>
-												<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
-												<div class="col s12 m4"><span id="pen"><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
-											</div></li>`;
-
-			            	if (item['mCnAc']<item['mCant']) {
-			            		$("#pen").css("color", "red");
-			            	}
+		            	var pend = (item['mCant'])-(item['mCnAc']);
+		            	
+		            	if (parseInt(item['mCnAc'])<parseInt(item['mCant'])) {
+		            		color = "style='color:red'";
+		            	}else if (parseInt(item['mCnAc'])>=parseInt(item['mCant'])) {
+		            		color = "style='color:green'";
+		            		pend = pend*(-1);
+		            	}
+		            	contenido += `<li class="collection-item avatar">
+		  								<i class="material-icons circle">local_mall</i>
+		  								<span class="title">`+item['mDesc']+`</span><br>
+		  								`+item['mArti']+`
+										<div class="row">
+											<div class="col s12 m4"><span><b>Cuota:</b> `+item['mCant']+`</span></div>
+											<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
+											<div class="col s12 m4"><span `+color+`><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
+										</div></li>`;
 
 			            });
 			            $("#ctsArt").append(contenido);
@@ -270,10 +266,7 @@ function changeTabs(tipo) {
 											<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
 											<div class="col s12 m4"><span `+color+`><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
 										</div></li>`;
-
-
-
-		            });
+						});
 		            $("#ctsArt").append(contenido);
 				break;
 			}

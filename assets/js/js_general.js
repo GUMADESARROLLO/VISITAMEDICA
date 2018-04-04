@@ -3,13 +3,52 @@ $(document).ready(function() {
     $('select').material_select();
     $(".button-collapse").sideNav();
 	
-    $(".nav-wrapper ul li a").each(function() {
-		
+    $(".nav-wrapper ul li a").each(function() {		
 		if(this.href.trim() == window.location) {
 			$(this).parent().addClass("active");
 		}
 	}); 
 });
+
+function inicializaControlFecha() {    
+    $('input[class="input-fecha"]').daterangepicker({
+     "locale": {
+            "format": "DD-MM-YYYY",
+            "separator": " - ",
+            "applyLabel": "Apply",
+            "cancelLabel": "Cancel",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "daysOfWeek": [
+                "D",
+                "L",
+                "M",
+                "M",
+                "M",
+                "V",
+                "S"
+            ],
+            "monthNames": [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ],          
+            "firstDay": 0
+        },
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+}
 
 function loadingPage(par) {
     if (par==true) {
@@ -34,4 +73,12 @@ function loadingPage(par) {
         $("#loader-1").remove();
         $("#load-1").remove();
     }
+}
+
+function buttonReturn() {
+    var button = `
+    <div id="pageReturn" class="fixed-action-btn2">
+        <a href="javascript:window.history.back();" class="btn-floating waves-effect waves-light light-blue accent-3"><i class="material-icons">keyboard_backspace</i></a>
+    </div>`;
+    $("body").append(button);
 }

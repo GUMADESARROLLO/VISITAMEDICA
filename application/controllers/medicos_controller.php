@@ -15,10 +15,20 @@ class medicos_controller extends CI_Controller {
         $this->load->view('header/header');
         $this->load->view('Pages/Medicos/medicos');
         $this->load->view('footer/footer');
+        $this->load->view('jsView/js_medicos');
 	}
 
 	public function listandoMedicos() {
-		$this->home_model->listandoMedicos();
+		$this->medicos_model->listandoMedicos();
+	}
+
+	public function detalleMedico($codMedico) {
+		$data['dt'] = $this->medicos_model->detalleMedico($codMedico);
+
+		$this->load->view('header/header');
+        $this->load->view('Pages/Medicos/infoMedico', $data);
+        $this->load->view('footer/footer');
+        $this->load->view('jsView/js_medicos');
 	}
 }
 ?>
