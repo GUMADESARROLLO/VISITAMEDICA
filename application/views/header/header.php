@@ -31,8 +31,8 @@
 				</ul>
 				<ul class="side-nav" id="mobile-demo">
 					<li><a href="<?php echo base_url("index.php/home");?>">Inicio</a></li>
-					<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>
-					<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>
+					<!--<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>-->
+					<!--<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>-->
 					<li><a href="<?php echo base_url("index.php/salir");?>">Cerrar sesión</a></li>
 				</ul>
 			</div>
