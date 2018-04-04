@@ -14,6 +14,8 @@
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>assets/css/_styles.css"  media="screen,projection"/>
 	<!--DATATABLES-->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/dataTables.foundation.css" >
+    <!--DATEPICKERS-->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/daterangepicker.css" >
 </head>
 <body>
 	<header class="demo-header mdl-layout__header">
@@ -24,7 +26,7 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a href="<?php echo base_url("index.php/home");?>">Inicio</a></li>
 					<!--<li><a href="<?php echo base_url("index.php/medicos");?>">Médicos</a></li>-->
-					<!--<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>-->
+					<li><a href="<?php echo base_url("index.php/farmacias");?>">Farmacias</a></li>
 					<li><a href="<?php echo base_url("index.php/salir");?>">Cerrar sesión</a></li>
 				</ul>
 				<ul class="side-nav" id="mobile-demo">

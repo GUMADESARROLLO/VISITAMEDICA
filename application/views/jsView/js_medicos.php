@@ -1,14 +1,23 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.modal').modal();
-		listandoMedicos();
+		$('.modal').modal();		
+        var pathname = window.location.pathname;
+        if (pathname.match(/medicos.*/)) {
+            listandoMedicos();
+        }else {
+            $("#ok").hide();
+            inicializaControlFecha();
+        }
 	});
 
 
 function listandoMedicos() {
 	loadingPage(true);
 	$('#tblMedicos').DataTable({
-		'ajax': 'listarMedicos',
+        "ajax":{
+            "url": "listarMedicos",
+            'dataSrc': '',
+        },
         "destroy": true,
         "order": [[ 0, "asc"]],
         "ordering": true,
@@ -38,19 +47,23 @@ function listandoMedicos() {
             "search":     "BUSCAR"
         },
         'columns': [
-			{ "title": "RUTA", "data": "RUTA" },
-			{ "title": "VENTA", "data": "VENTA" },
-			{ "title": "META", "data": "META" },
-			{ "title": "VST 3M", "data": "VST3M", }
+			{ "title": "CODIGO", "data": "CODIGO" },
+			{ "title": "NOMBRE COMPLETO", "data": "NOMBRE" },
+			{ "title": "ESPECIALIDAD", "data": "ESPECIALIDAD" },
+			{ "title": "TELEFONO", "data": "TELEFONO" },
+            { "title": "DIRECCION", "data": "DIRECCION" }
         ],
         "columnDefs": [
-        	{"className": "dt-center", "targets": [0]},
-        	{"className": "dt-right", "targets": [ 1, 2, 3 ]}
+        	{"className": "dt-center", "targets": [0, 1, 2, 3, 4]},
       	],
-        "fnInitComplete": function () {        	
+        "fnInitComplete": function () {      	
         	loadingPage(false);
         }
 	});
+}
+
+function detalleMedico(codMedico) {
+    window.location.href = "informacionMedico/" + codMedico;
 }
 
 </script>

@@ -149,6 +149,10 @@
 .dt-right {
   text-align: right;
 }
+
+.dt-left {
+  text-align: left;
+}
 /*FIN ESTILO DATATABLE*/
 
 /*INPUT*/
@@ -198,15 +202,43 @@
   min-height: 75%;
 }
 
-#tblVtsTotales_filter {
- display: none;
-}
-
-#tblFarmacias_filter {
+#tblFarmacias_filter, #tblMedicos_filter, #tblVtsTotales_filter {
   display: none;
 }
 
 #temporal1 {
   margin: 0 auto;
   max-width: 20%;
+}
+
+#tblVtsTotales_length, #tblMedicos_length, #tblFarmacias_length {
+  display: none;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.fixed-action-btn2 {
+  position: absolute;
+  left: 5%;
+  top: 9.5%;
+  transform: translate(0%, -50%);
+    -webkit-transform: translate(0%, -50%);
+  z-index: 500;
 }

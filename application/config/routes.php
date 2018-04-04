@@ -25,6 +25,7 @@ $route['historial/(:any)'] = 'home_controller/historial3M/$1';
 /*RUTA: MEDICOS*/
 $route['medicos'] = 'medicos_controller';
 $route['listarMedicos'] = 'medicos_controller/listandoMedicos';
+$route['informacionMedico/(:any)'] = 'medicos_controller/detalleMedico/$1';
 
 /*RUTA: FARMACIAS*/
 $route['farmacias'] = 'farmacias_controller';

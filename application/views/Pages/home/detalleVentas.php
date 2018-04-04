@@ -66,7 +66,7 @@
 		</div>		
 	</div>
 	<div id="return1" class="fixed-action-btn">
-		<a href="#!" class="btn-floating waves-effect waves-light blue lighten-3"><i class="material-icons">expand_less</i></a>		
+		<a href="#!" class="btn-floating waves-effect waves-light blue lighten-3"><i class="material-icons">expand_less</i></a>	
 	</div>
 </div>
 <div id="temporal" class="modal">

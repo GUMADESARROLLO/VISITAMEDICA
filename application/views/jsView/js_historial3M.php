@@ -3,6 +3,7 @@
 		changeTabs('1');
 		$('#return1').hide();
 		$('.modal').modal();
+		buttonReturn();
 	});
 
 $('#return1').click(function() {	

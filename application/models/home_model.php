@@ -25,6 +25,12 @@ class home_model extends CI_Model {
                 $json['data'][$i]['RES'] = '<span '.$st.'>'.number_format($res, 2).'</span>';
                 $i++;
             }
+        }else {
+            $json['data'][$i]['RUTA'] = '';
+            $json['data'][$i]['VENTA'] = '';
+            $json['data'][$i]['META'] = 'Sin registros aún...';
+            $json['data'][$i]['VST3M'] = '';
+            $json['data'][$i]['RES'] = '';
         }
         echo json_encode($json);
         $this->sqlsrv->close();
