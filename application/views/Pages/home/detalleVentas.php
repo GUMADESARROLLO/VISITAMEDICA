@@ -9,15 +9,15 @@
 	            <span>Ruta</span>
 	        </div>
 	        <div class='col s12 m3'>
-	            <span class='totales'>".number_format($dv[0]['Venta'], 2)."</span><br>
+	            <span class='totales'>C$ ".number_format($dv[0]['Venta'], 2)."</span><br>
 	            <span>Venta</span>
 	        </div>
 	        <div class='col s12 m3'>
-	            <span class='totales'>".number_format($dv[0]['metas'], 2)."</span><br>
+	            <span class='totales'>C$ ".number_format($dv[0]['metas'], 2)."</span><br>
 	            <span>Metas</span>
 	        </div>
 	        <div class='col s12 m3'>
-	            <span class='totales'>".number_format($dv[0]['vst_3m'], 2)."</span><br>
+	            <span class='totales'>C$ ".number_format($dv[0]['vst_3m'], 2)."</span><br>
 	            <span>Vts. 3M</span>
 	        </div>
 	        <div class='col s12 m2'>
@@ -32,10 +32,7 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="row" style="margin-bottom: 0px;">
-						<div class="col s12 m6">
-							<span class="card-title"><i class="small material-icons">shopping_cart</i>Ventas</span>
-						</div>
-						<div class="col s12 m6">
+						<div class="col s12 m12">
 							<div class="input-group">
 							  <span class="input-group-addon"><i class="small material-icons">search</i></span>
 							  <input placeholder="Buscar" name="buscar" id="buscar" type="text">

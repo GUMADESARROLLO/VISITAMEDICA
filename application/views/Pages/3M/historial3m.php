@@ -13,10 +13,7 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="row" style="margin-bottom: 0px;">
-						<div class="col s12 m6">
-							<span class="card-title"><i class="small material-icons">shopping_cart</i>Ventas</span>
-						</div>
-						<div class="col s12 m6">
+						<div class="col s12 m12">
 							<div class="input-group">
 							  <span class="input-group-addon"><i class="small material-icons">search</i></span>
 							  <input placeholder="Buscar" name="buscar3M" id="buscar3M" type="text">
