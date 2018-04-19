@@ -104,7 +104,7 @@
 									echo '
 									<div class="row"><br>
 										<div class="input-field col s12 m6">
-											<i class="material-icons prefix">attach_money</i>
+											<i class="material-icons prefix">monetization_on</i>
 											<input id="potencialMensualComp" type="tel" class="validate edit" readonly value="'.$dt[0]['PotencialMensualCompra'].'" >
 											<label for="potencialMensualComp">Potencial mensual compra</label>
 										</div>
@@ -170,7 +170,7 @@
 		</div>
 	</div>
 </div>
-<div id="opcButtons" class="fixed-action-btn">
+<div id="opcButtons" class="fixed-action-btn" style="display: none;">
 	<a href="#!" id="editarFarmacia" class="btn-floating waves-effect waves-light red darken-4">
 		<i class="material-icons">create</i>
 	</a>

@@ -12,8 +12,10 @@ class farmacias_controller extends CI_Controller {
 	}
 
 	public function index() {
+		$data['rutas'] = $this->farmacias_model->listandoRutas();
+
         $this->load->view('header/header');
-        $this->load->view('Pages/Farmacias/farmacias');
+        $this->load->view('Pages/Farmacias/farmacias', $data);
         $this->load->view('footer/footer');
         $this->load->view('jsView/js_farmacias');
 	}
@@ -32,7 +34,7 @@ class farmacias_controller extends CI_Controller {
 	}
 
 	public function guardarCambiosFarmacia() {
-        $this->farmacias_model->guardandoCambiosFarmacia($this->input->post('data'));
+        $this->farmacias_model->guardandoCambiosMedicos($this->input->post('data'));
 	}
 }
 ?>

@@ -333,9 +333,7 @@ function detalleVts(val, tipo) {
 			}
 			$('#detalleTemp').append(contentModal);
 		}
-	}).done( function (data) {
-		loadingPage(false);
-	});
+	})
 	$('#temporal').modal('open');
 }
 </script>

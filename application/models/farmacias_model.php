@@ -17,12 +17,28 @@ class farmacias_model extends CI_Model {
                 $json[$i]['NOMBREFARMACIA'] = $key['NombreFarmacia'];
                 $json[$i]['DIRECCION'] = $key['Direccion'];
                 $json[$i]['NOMBREPROPIETARIO'] = $key['NombrePropietario'];
+                $json[$i]['RUTA'] = $key['Ruta'];
                 $i++; 
             }
         }else {
             echo false;
         }
         echo json_encode($json);
+    }
+
+    public function listandoRutas() {
+        $query = $this
+                ->db
+                ->select("Ruta")
+                ->distinct('Ruta')
+                ->order_by("Ruta","asc")
+                ->get("farmacias");
+
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        }else {
+            return false;
+        }
     }
 
     public function informacionFarmacia($codFarmacia) {
@@ -44,7 +60,7 @@ class farmacias_model extends CI_Model {
                 foreach ($value as $key) {
                     $fecha = date('Y-m-d', strtotime($key['mFAN']));
 
-                    $result = $this->db->query("call sp_farmacias(".$key['mUID'].",'".$key['mNFR']."','".$key['mNPR']."','".$key['mDIR']."','".$fecha."','".$key['mTFR']."','".$key['mTFP']."','".$key['mHAT']."','".$key['mRCP']."','".$key['mTRC']."','".$key['mCDP']."','".$key['mPCP']."','".$key['mDPF']."','".$key['mRVC']."','".$key['mRCJ']."','".$key['mNDM']."',".$key['mPPP'].",".$key['mEBD'].",".$key['mPIP'].",".$key['mCCO'].", '".$key['Ruta']."')");
+                    $result = $this->db->query("call sp_farmacias('".$key['mUID']."','".$key['mNFR']."','".$key['mNPR']."','".$key['mDIR']."','".$fecha."','".$key['mTFR']."','".$key['mTFP']."','".$key['mHAT']."','".$key['mRCP']."','".$key['mTRC']."','".$key['mCDP']."','".$key['mPCP']."','".$key['mDPF']."','".$key['mRVC']."','".$key['mRCJ']."','".$key['mNDM']."',".$key['mPPP'].",".$key['mEBD'].",".$key['mPIP'].",".$key['mCCO'].", '".$key['Ruta']."')");
                 }
             }
             if ($result) {

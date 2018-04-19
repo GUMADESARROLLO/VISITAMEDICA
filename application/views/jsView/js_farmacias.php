@@ -20,6 +20,11 @@ $("#txtBuscarFarm").on("keyup", function () {
     table.search(this.value).draw();
 });
 
+$("#select1").on("change", function () {
+    var table = $("#tblFarmacias").DataTable();
+    table.search(this.value).draw();
+});
+
 $("#editarFarmacia").click( function() {
     $(".edit").removeAttr("readonly");
     $(".editChk").removeAttr("disabled");
@@ -56,7 +61,7 @@ function guardarCambiosFarmacia() {
   var dataFarmacia = {
     "0":[
       {
-        "mUID":parseInt($("#idFarmacia").val()),
+        "mUID":$("#idFarmacia").val(),
         "mNFR":$("#nombreFarmacia").val(),
         "mNPR":$("#nombrePropietario").val(),
         "mDIR":$("#direccion").val(),
@@ -174,12 +179,13 @@ function listandoFarmacias() {
 			{ "title": "CODIGO", "data": "IDFARMACIA" },
 			{ "title": "NOMBRE", "data": "NOMBREFARMACIA" },
 			{ "title": "DIRECCION", "data": "DIRECCION" },
-			{ "title": "PROPIETARIO", "data": "NOMBREPROPIETARIO" }
+			{ "title": "PROPIETARIO", "data": "NOMBREPROPIETARIO" },
+      { "title": "RUTA ", "data": "RUTA" },
         ],
         "columnDefs": [
-        	{"className": "dt-center", "targets": [0, 3]},
+        	{"className": "dt-center", "targets": [0, 3, 4]},
           {"className": "dt-left", "targets": [ 1, 2] },
-          { "width": "20%", "targets": 1 }
+          { "width": "20%", "targets": [ 1, 3 ] }
       	],
         "fnInitComplete": function () {   	
         	loadingPage(false);

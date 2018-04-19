@@ -36,7 +36,10 @@
 							<span class="card-title"><i class="small material-icons">shopping_cart</i>Ventas</span>
 						</div>
 						<div class="col s12 m6">
-							<input placeholder="Buscar" name="buscar" id="buscar" type="text">		
+							<div class="input-group">
+							  <span class="input-group-addon"><i class="small material-icons">search</i></span>
+							  <input placeholder="Buscar" name="buscar" id="buscar" type="text">
+							</div>
 						</div>
 					</div>
 				</div>

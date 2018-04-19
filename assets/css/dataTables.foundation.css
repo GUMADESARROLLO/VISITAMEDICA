@@ -152,7 +152,8 @@ table {
     color: #222222;
     /*font-size: 0.875rem;*/
     font-size: 14px;
-    padding: 0.5625rem 0.625rem;
+    /*padding: 0.5625rem 0.625rem;*/
+    padding: 0.7525rem 0.625rem;
     text-align: left; }
   table tr.even, table tr.alt, table tr:nth-of-type(even) {
     background: #F9F9F9; }
