@@ -7,9 +7,22 @@
         }else {
             $("#ok").hide();
             inicializaControlFecha();
+            buttonReturn();
+            especialidad();
         }
 	});
 
+$("#txtBuscarMed").on("keyup", function () {
+    var table = $("#tblMedicos").DataTable();
+    table.search(this.value).draw();
+});
+
+function especialidad() {    
+  var especialidad = $("#Especialidades").val();
+  $.getJSON("../medicos_controller/especialidad/"+especialidad, function(data) {
+      $("#Especialidades").val(data);
+  });
+}
 
 function listandoMedicos() {
 	loadingPage(true);
@@ -50,8 +63,8 @@ function listandoMedicos() {
 			{ "title": "CODIGO", "data": "CODIGO" },
 			{ "title": "NOMBRE COMPLETO", "data": "NOMBRE" },
 			{ "title": "ESPECIALIDAD", "data": "ESPECIALIDAD" },
-			{ "title": "TELEFONO", "data": "TELEFONO" },
-            { "title": "DIRECCION", "data": "DIRECCION" }
+			{ "title": "DIRECCION", "data": "DIRECCION" },
+            { "title": "TELF. CLINICA", "data": "TELFCLINICA" }
         ],
         "columnDefs": [
         	{"className": "dt-center", "targets": [0, 1, 2, 3, 4]},

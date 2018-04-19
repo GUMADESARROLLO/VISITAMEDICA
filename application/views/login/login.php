@@ -12,12 +12,18 @@
 						<form class="form" method="post" action="<?php echo base_url('index.php/acreditando')?>">
 							<div  class="row">
 								<div class="col s12 m12 ">
-									<input placeholder="Usuario" name="usuario" id="usuario" type="text" class="validate">
+									<div class="input-group">
+									  <span class="input-group-addon"><i class="small material-icons">person</i></span>
+									  <input placeholder="Usuario" name="usuario" id="usuario" type="text" class="validate">
+									</div>									
 								</div>
 							</div>
 							<div class="row">
 								<div class="col s12 m12">
-									<input placeholder="Contraseña" name="password" id="password" type="password" class="validate">
+									<div class="input-group">
+									  <span class="input-group-addon"><i class="small material-icons">lock</i></span>
+									  <input placeholder="Contraseña" name="password" id="password" type="password" class="validate">
+									</div>
 								</div>
 							</div>   
 							<div class="row center">

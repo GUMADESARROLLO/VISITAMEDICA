@@ -32,3 +32,8 @@ $route['farmacias'] = 'farmacias_controller';
 $route['listarFarmacias'] = 'farmacias_controller/listandoFarmacias';
 $route['informacionFarmacia/(:any)'] = 'farmacias_controller/detalleFarmacia/$1';
 $route['guardarCambiosFarmacia'] = 'farmacias_controller/guardarCambiosFarmacia';
+
+/*RUTA: REPORTES*/
+$route['reportes'] = 'reportes_controller';
+$route['generarDataRpt/(:any)/(:any)/(:any)'] = 'reportes_controller/generarDataReporte/$1/$2/$3';
+$route['detalleRpt/(:any)'] = 'reportes_controller/detalleReporte/$1';

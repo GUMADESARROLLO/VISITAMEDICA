@@ -2655,7 +2655,7 @@ i.tiny {
 }
 
 i.small {
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 i.medium {
@@ -5049,7 +5049,7 @@ small {
 .tabs .tab {
   display: inline-block;
   text-align: center;
-  line-height: 46px;
+  line-height: 48px;
   height: 48px;
   padding: 0;
   margin: 0;
@@ -5215,13 +5215,13 @@ small {
 
 .btn:focus, .btn-large:focus,
 .btn-floating:focus {
-  background-color: #1d7d74;
+  /*background-color: #039be5;*/
 }
 
 .btn, .btn-large {
   text-decoration: none;
   color: #fff;
-  background-color: #1A237E;
+  background-color: #0D47A1;
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: .2s ease-out;
@@ -5230,7 +5230,7 @@ small {
 }
 
 .btn:hover, .btn-large:hover {
-  background-color: #0D47A1;
+  background-color: #1A237E;
 }
 
 .btn-floating {
@@ -6573,8 +6573,8 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
   left: 0;
   top: 0;
   margin: 4px;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   z-index: 0;
   -webkit-transition: .28s ease;
   transition: .28s ease;
@@ -7028,7 +7028,8 @@ select {
   font-size: 1rem;
   margin: 0 0 20px 0;
   padding: 0;
-  display: block;
+  /*display: block;*/
+  display: none;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;

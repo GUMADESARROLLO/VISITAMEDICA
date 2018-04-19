@@ -14,6 +14,5 @@
 <script type="text/javascript" src="<?PHP echo base_url();?>assets/js/moment.min.js"></script>
 <script type="text/javascript" src="<?PHP echo base_url();?>assets/js/moment.js"></script>
 <script type="text/javascript" src="<?PHP echo base_url();?>assets/js/daterangepicker.js"></script>
-
 </body>
 </html>

@@ -50,7 +50,24 @@ function inicializaControlFecha() {
     });
 }
 
+var rep;
 function loadingPage(par) {
+    var tiempo = 0;
+    loading(par);
+    if (par==true) {
+        rep = setInterval( function() {
+            tiempo++;
+            if (tiempo>=10) {
+                alert("Algo anda mal al parecer :(\n\nContacte con el administrador del sistema");
+                tiempo=0;
+            }
+        }, 1000);
+    }else if(par==false) {
+        window.clearInterval(rep);
+    }
+}
+
+function loading(par) {
     if (par==true) {
         $("#loader-1").remove();
         $("#load-1").remove();

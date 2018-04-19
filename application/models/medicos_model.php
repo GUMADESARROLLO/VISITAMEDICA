@@ -7,18 +7,59 @@ class medicos_model extends CI_Model {
 
     public function listandoMedicos() {
         $json = array();
+        $i=0;
+        $query = $this
+                ->db
+                ->select('IdMedico')
+                ->select('NombreMedico')
+                ->select('Especialidad')
+                ->select('Direccion')
+                ->select('TelfClinica')
+                ->get('medicos');
 
-        for ($i=0; $i <= 10; $i++) {
-            $json[$i]['CODIGO'] = '<a href="#!" onclick="detalleMedico('."'".$i."'".')">000'.$i.'</a>';
-            $json[$i]['NOMBRE'] = 'Bismarck Escobar';
-            $json[$i]['ESPECIALIDAD'] = 'Dentista';
-            $json[$i]['TELEFONO'] = '8826-8430';
-            $json[$i]['DIRECCION'] = 'Masaya';
+        if ($query->num_rows()>0) {
+            foreach ($query->result_array() as $key) {
+                $json[$i]['CODIGO'] = '<a href="#!" onclick="detalleMedico('."'".$key['IdMedico']."'".')">'.$key['IdMedico'].'</a>';
+                $json[$i]['NOMBRE'] = $key['NombreMedico'];
+                $json[$i]['ESPECIALIDAD'] = $this->especialidad($key['Especialidad']);
+                $json[$i]['DIRECCION'] = $key['Direccion'];
+                $json[$i]['TELFCLINICA'] = $key['TelfClinica'];
+                $i++;
+            }
+        }else {
+            $json[$i]['CODIGO'] = '';
+            $json[$i]['NOMBRE'] = '';
+            $json[$i]['ESPECIALIDAD'] = 'Sin registros aún...';
+            $json[$i]['DIRECCION'] = '';
+            $json[$i]['TELFCLINICA'] = '';
         }
         echo json_encode($json);
     }
 
+    public function especialidad($idEspecialidad) {
+        $especialidad="";
+        $query = $this
+                ->db
+                ->select("Especialidad")
+                ->where("IdEspecialidad", $idEspecialidad)
+                ->get("especialidad");
+
+        if ($query->num_rows()>0) {
+            $especialidad = $query->result_array()[0]['Especialidad'];
+        }
+        return $especialidad;
+    }
+
     public function detalleMedico($codMedico) {
-        return true;
+        $query=$this
+               ->db
+               ->where("IdMedico", $codMedico)
+               ->get("medicos");
+
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        }else {
+            return false;
+        }
     }
 }
