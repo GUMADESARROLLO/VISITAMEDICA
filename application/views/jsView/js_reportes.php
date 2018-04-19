@@ -113,7 +113,7 @@ function generarReporte( f1, f2, ruta ) {
         ],
         "columnDefs": [
           { "targets": [6], "visible": false },
-          {"className": "dt-center", "targets": [1, 2, 3, 4]},
+          {"className": "dt-center", "targets": [1, 2, 3, 4, 5]},
           {"className": "dt-center detalle-rpt", "targets": 0 },
           { "width": "10%", "targets": [ 0, 4 ] }
         ]

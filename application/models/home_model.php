@@ -14,15 +14,15 @@ class home_model extends CI_Model {
             foreach ($query as $key) {
                 $st='style="color:red"';
                 $json['data'][$i]['RUTA'] = '<a href="#!" onclick="detalleTalonario('."'".$key['RUTA']."'".')">'.$key['RUTA'].'</a>';
-                $json['data'][$i]['VENTA'] = $key['Venta'];
-                $json['data'][$i]['META'] = $key['metas'];
-                $json['data'][$i]['VST3M'] = $key['vst_3m'];
+                $json['data'][$i]['VENTA'] = 'C$ '.number_format($key['Venta'], 2);
+                $json['data'][$i]['META'] = 'C$ '.number_format($key['metas'], 2);
+                $json['data'][$i]['VST3M'] = 'C$ '.number_format($key['vst_3m'], 2);
                 $res=(($key['metas'])-($key['Venta']));
                 if ((float)$key['Venta']>=(float)$key['metas']) {
                     $res=$res*(-1);
                     $st='style="color:green"';
                 }
-                $json['data'][$i]['RES'] = '<span '.$st.'>'.number_format($res, 2).'</span>';
+                $json['data'][$i]['RES'] = '<span '.$st.'>C$ '.number_format($res, 2).'</span>';
                 $i++;
             }
         }else {

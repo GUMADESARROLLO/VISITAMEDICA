@@ -65,10 +65,10 @@ function listandoVst3M() {
         },
         'columns': [
 			{ "title": "RUTA", "data": "RUTA" },
-			{ "title": "VENTA", "data": "VENTA", render: $.fn.dataTable.render.number( ',', '.', 2 ) },
-			{ "title": "META", "data": "META", render: $.fn.dataTable.render.number( ',', '.', 2 )},
+			{ "title": "VENTA", "data": "VENTA" },
+			{ "title": "META", "data": "META" },
 			{ "title": "RESTANTE", "data": "RES" },
-			{ "title": "VST 3M", "data": "VST3M", render: $.fn.dataTable.render.number( ',', '.', 2 ) }
+			{ "title": "VST 3M", "data": "VST3M" }
         ],
         "columnDefs": [
         	{"className": "dt-center", "targets": [0]},
@@ -106,7 +106,7 @@ $("#buscar").on('change', function () {
 			  								`+item['ARTICULO']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Cantidad:</b> `+item['CANTIDAD']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 												<div class="col s12 m4"><span><b>Total veces faturado: </b>`+item['Hts']+`</span></div>
 											</div>
 											</li>`;
@@ -123,7 +123,7 @@ $("#buscar").on('change', function () {
 			  								`+item['CCL']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Total veces facturado:</b> `+item['Hts']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 											</div>
 											</li>`;
 
@@ -139,7 +139,7 @@ $("#buscar").on('change', function () {
 			  								`+item['ARTICULO']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Cantidad:</b> `+item['Cantidad']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto:</b> `+item['Venta']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto:</b> C$`+item['Venta']+`</span></div>
 												<div class="col s12 m4"><span><b>Fecha:</b> `+item['Dia']+`</span></div>
 											</div></li>`;
 
@@ -204,7 +204,7 @@ function changeTabs(tipo) {
 		  								`+item['ARTICULO']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cantidad:</b> `+item['CANTIDAD']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 											<div class="col s12 m4"><span><b>Total veces faturado: </b>`+item['Hts']+`</span></div>
 										</div>
 										</li>`;
@@ -221,7 +221,7 @@ function changeTabs(tipo) {
 		  								`+item['CCL']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Total veces facturado:</b> `+item['Hts']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 										</div>
 										</li>`;
 
@@ -237,7 +237,7 @@ function changeTabs(tipo) {
 		  								`+item['ARTICULO']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cantidad:</b> `+item['Cantidad']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['Venta']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['Venta']+`</span></div>
 											<div class="col s12 m4"><span><b>Fecha:</b> `+item['Dia']+`</span></div>
 										</div></li>`;
 
@@ -307,7 +307,7 @@ function detalleVts(val, tipo) {
 		  								`+item['CCL']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Cantidad: </b> `+item['CANTIDAD']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto: </b> `+item['VENTA']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto: </b> C$ `+item['VENTA']+`</span></div>
 												<div class="col s12 m4"><span><b>Fecha: </b>`+item['DIA']+`</span></div>
 											</div>
 										</li>`;
@@ -323,7 +323,7 @@ function detalleVts(val, tipo) {
 		  								`+item['ARTICULO']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cantidad:</b> `+item['CANTIDAD']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 											<div class="col s12 m4"><span><b>Fecha:</b> `+item['DIA']+`</span></div>
 										</div>
 										</li>`;

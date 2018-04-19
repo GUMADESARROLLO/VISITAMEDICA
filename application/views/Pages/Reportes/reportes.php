@@ -70,7 +70,7 @@
 	<div class="modal-content">
         <div class="row right">
             <div class="col s12 m12">
-            	<a id="imprimirRpt" href="#!" class=""><i class="material-icons cancel">print</i></a>&nbsp;&nbsp;
+                <a href="#!" id="imprimirRpt"><img src="<?php echo base_url();?>assets/img/excel.png" width="30px"></a>&nbsp;&nbsp;
                 <a href="#" class="modal-action modal-close"><i class="material-icons cancel">clear</i></a>
             </div>
         </div>

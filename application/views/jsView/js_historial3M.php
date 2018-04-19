@@ -39,7 +39,7 @@ function changeTabs(tipo) {
 		  								`+item['ARTICULO']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cantidad:</b> `+item['CANTIDAD']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 											<div class="col s12 m4"><span><b>Total veces faturado: </b>`+item['Hts']+`</span></div>
 										</div>
 										</li>`;
@@ -56,7 +56,7 @@ function changeTabs(tipo) {
 		  								`+item['CCL']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Total veces facturado:</b> `+item['Hts']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 										</div>
 										</li>`;
 
@@ -72,7 +72,7 @@ function changeTabs(tipo) {
 		  								`+item['ARTICULO']+`
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cantidad:</b> `+item['Cantidad']+`</span></div>
-											<div class="col s12 m4"><span><b>Monto:</b> `+item['Venta']+`</span></div>
+											<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['Venta']+`</span></div>
 											<div class="col s12 m4"><span><b>Fecha:</b> `+item['Dia']+`</span></div>
 										</div></li>`;
 
@@ -136,7 +136,7 @@ $("#buscar3M").on('change', function () {
 			  								`+item['ARTICULO']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Cantidad:</b> `+item['CANTIDAD']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 												<div class="col s12 m4"><span><b>Total veces faturado: </b>`+item['Hts']+`</span></div>
 											</div>
 											</li>`;
@@ -153,7 +153,7 @@ $("#buscar3M").on('change', function () {
 			  								`+item['CCL']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Total veces facturado:</b> `+item['Hts']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto:</b> `+item['VENTA']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['VENTA']+`</span></div>
 											</div>
 											</li>`;
 
@@ -169,7 +169,7 @@ $("#buscar3M").on('change', function () {
 			  								`+item['ARTICULO']+`
 											<div class="row">
 												<div class="col s12 m4"><span><b>Cantidad:</b> `+item['Cantidad']+`</span></div>
-												<div class="col s12 m4"><span><b>Monto:</b> `+item['Venta']+`</span></div>
+												<div class="col s12 m4"><span><b>Monto:</b> C$ `+item['Venta']+`</span></div>
 												<div class="col s12 m4"><span><b>Fecha:</b> `+item['Dia']+`</span></div>
 											</div></li>`;
 
