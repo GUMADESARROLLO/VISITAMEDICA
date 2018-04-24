@@ -91,7 +91,7 @@ function generarReporte( f1, f2, ruta ) {
             [20, 30, "Todo"]
         ],
         "language": {
-            "zeroRecords": "NO HAY RESULTADOS",
+            "zeroRecords": "Cargando...",
             "paginate": {
                 "first":      "Primera",
                 "last":       "Última ",
@@ -134,10 +134,10 @@ $('#tblReporte').on('click', 'tbody .detalle-rpt', function() {
       $("#icon-"+data['IDLOG']).text("add_circle");
   }
   else {
+    $("#icon-"+data['IDLOG']).hide();
+    $("#icon-"+data['IDLOG']).after("<div id='pgr-"+data['IDLOG']+"' class='progress'><div class='indeterminate'></div></div>");
     format(row.child, data['IDLOG']);
     tr.addClass('shown');
-    $("#icon-"+data['IDLOG']).css("color", "red");
-    $("#icon-"+data['IDLOG']).text("remove_circle");
   }
 });
 
@@ -167,76 +167,11 @@ function format ( callback, IdLog ) {
                     `</tbody>
                   </table>`)).show();
     }
+  }).done( function(data) {
+      $("#pgr-"+IdLog).remove();
+      $("#icon-"+IdLog).show();
+      $("#icon-"+IdLog).css("color", "red");
+      $("#icon-"+IdLog).text("remove_circle");
   });
 }
-
-
-/*BORRAR*/
-
-$("#InsertarMedico1").click( function() {
-  var dataMedico = {
-    "0":[
-      {
-        "mUID":"F02-0005",
-        "m01":"Nombre medico",
-        "m02":"2018-02-02",
-        "m03":"Direccion",
-        "m04":"TelefonoClinica",
-        "m05":"Celular",
-        "m06":"Email",
-        "m07":"Año de graduacion",
-        "m08":"NumeroPacienteEstimado",
-        "m09":"MotivoConsultaFrecuente",
-        "m10":"CostoConsulta",
-        "m11":"SocioClinica",
-        "m12":"MarcaCelular",
-        "m13":"MarcaVehiculo",
-        "m14":"MarcaReloj",
-        "m15":"MarcaComputadora",
-        "m16":"NombreAsistente",
-        "m17":"TelefExtensionAsistente",
-        "m18":"CelularAsistente",
-        "m19":"EmailAsistente",
-        "m20":"2018-02-02",
-        "m21":"ComputadoraAsistente",
-        "m22":"OLBAMedica",
-        "m23":"DeportePractica",
-        "m24":"Pasatiempo",
-        "m25":"SociedadMedicaParticipa",
-        "m26":"Facebook",
-        "m27":"Twitter",
-        "m28":"Linkedin",
-        "m29":"Instagram",
-        "m30":"F02",
-        "m31":"1",
-        "m32":"0",
-        "m33":1
-      }
-    ]
-  }
-
-  var form_data = {
-      data:dataMedico
-  };
-
-  $.ajax({
-      url: "http://localhost/API_vm/index.php/IUMedicos",
-      type: 'post',
-      async: true,
-      dataType : 'json',
-      data: form_data,
-      success: function(data) {
-          if (data==true) {
-              swal(
-                'Guardado con éxito',
-                'Se aplicaron los cambios',
-                'success'
-              )
-          }else {
-              Materialize.toast("Ups...ocurrio un problema al tratar de actualizar!", 4000, 'rounded');
-          }
-      }
-  });
-})
-
 </script>

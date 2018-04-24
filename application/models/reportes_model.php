@@ -5,6 +5,12 @@ class reportes_model extends CI_Model {
         include(APPPATH.'libraries\PHPExcel\Classes\PHPExcel.php');
         $this->load->database();
     }
+     public function open_database_connectionSQL(){
+        $serverName = "192.168.1.18";
+        $connectionInfo = array( "UID"=>"dbomanager","PWD"=>"Umk*.*@!","Database"=>"PRODUCCION","CharacterSet"=>"UTF-8");
+        $LINK = sqlsrv_connect( $serverName, $connectionInfo);
+        return $LINK;
+    }
 
     public function generadoDataRpt($f1, $f2, $ruta) {
         $json = array();
@@ -47,6 +53,7 @@ class reportes_model extends CI_Model {
 
     public function nombreCliente($IdCliente) {
         $nombreCliente="";
+
         if(stristr($IdCliente, '-F') != FALSE) {
             $query = $this
                     ->db
@@ -65,10 +72,18 @@ class reportes_model extends CI_Model {
 
             $nombreCliente = $query->result_array()[0]['NombreMedico'];
         }else {
-            $query = $this->sqlsrv->fetchArray('SELECT NOMBRE FROM vm_Clientes WHERE CLIENTE = '."'".$IdCliente."'".';', SQLSRV_FETCH_ASSOC);
+           $conn = $this->open_database_connectionSQL();
 
-            if (count($query)>0) {
-                $nombreCliente = $query[0]['NOMBRE'];
+            $tsql = "SELECT NOMBRE FROM vm_Clientes WHERE CLIENTE='".$IdCliente."'";
+
+            $stmt = sqlsrv_query( $conn, $tsql , null, array( "Scrollable" => SQLSRV_CURSOR_KEYSET ) );
+            if(sqlsrv_num_rows($stmt)){
+                $i=0;
+                while($row=sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC)){
+                    $nombreCliente = $row['NOMBRE'];
+                    $i++;
+                }
+
             }
             $this->sqlsrv->close();
         }
@@ -102,7 +117,7 @@ class reportes_model extends CI_Model {
         $json=array();
         $i=0;
 
-        $query = $this->db->query("SELECT DISTINCT(RUTA) AS RUTA FROM cuotasmes");
+        $query = $this->db->query("SELECT DISTINCT(RUTA) AS RUTA FROM cuotasmes ORDER BY RUTA ASC");
         
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $key) {
