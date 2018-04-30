@@ -38,7 +38,7 @@ class reportes_model extends CI_Model {
             foreach ($query->result_array() as $key) {
                 $json[$i]['F1'] = '<a href="#!"><i class="material-icons" id="icon-'.$key['IdLog'].'" style="color:green">add_circle</i></a>';
                 $json[$i]['CODIGO'] = $key['Cliente'];
-                $json[$i]['CLIENTE'] = $this->nombreCliente($key['Cliente']);
+                $json[$i]['CLIENTE'] = $key['CLNombre'];
                 $json[$i]['DESCRIPCION'] = $key['Descripcion'];
                 $json[$i]['FECHA'] = date('d/m/Y g:ia', strtotime($key['Fecha']));
                 $json[$i]['RUTA'] = $key['Ruta'];
@@ -114,20 +114,21 @@ class reportes_model extends CI_Model {
     }
 
     public function listandoRutas() {
-        $json=array();
+        $temp=array();
         $i=0;
+        $query = $this->db->query("SELECT Usuario AS Usuario, Nombre_visitador AS Nombre_visitador FROM usuarios WHERE Rol = 2");
 
-        $query = $this->db->query("SELECT DISTINCT(RUTA) AS RUTA FROM cuotasmes ORDER BY RUTA ASC");
-        
-        if ($query->num_rows() > 0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result_array() as $key) {
-              $json[$i]['RUTA'] = $key['RUTA'];
-              $i++;
-            } 
+                $temp[] = array(
+                    'value' => $key['Usuario'],
+                    'desc' => $key['Usuario'].' - '.$key['Nombre_visitador']
+                );
+            }
+            echo json_encode($temp);
         }else {
-            $json[$i]['RUTA'] = "";
-        }
-        echo json_encode($json);
+            echo false;
+        }        
     }
 
     public function generarExcel($f1,$f2,$ruta) {

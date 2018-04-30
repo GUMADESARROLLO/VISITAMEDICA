@@ -1,8 +1,8 @@
 <div class="container">
     <div class='row totales-content'>
         <div class='col s12 m6'>
-            <span class='totales'><?php echo $ruta ?></span><br>
-            <span>Ruta</span>
+            <span class='totales'><?php echo $dv['NOMBRE'] ?></span><br>
+            <span style="font-family: 'robotoregular'; font-size: 22px "><?php echo str_replace("'", " ", $dv['RUTAS']) ?></span>
         </div>
         <div class='col s12 m6'>
             <span class='totales' style="float: right">Historial 3 Meses</span><br>
@@ -21,7 +21,7 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" name="ruta" id="ruta" value="<?php echo $ruta ?>">
+				<input type="hidden" name="visitador" id="visitador" value="<?php echo $dv['COD'] ?>">
 				<div class="card-tabs">
 					<ul class="tabs tabs-fixed-width">
 						<li class="tab"><a onclick="changeTabs('1')" class="active" href="#test1">VTS POR ARTICULOS</a></li>

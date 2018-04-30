@@ -9,13 +9,12 @@ function listandoRutas() {
   $.getJSON("../index.php/reportes_controller/listandoRutas", function(data) {
     $("#Ruta").append('<option value="ALL">TODOS</option>');
     $.each(data, function(i, item) {
-      $("#Ruta").append('<option value="' + item['RUTA'] + '">' + item['RUTA'] + '</option>');
+      $("#Ruta").append('<option value="' + item['value'] + '">' + item['desc'] + '</option>');
     });
   });
 }
 
 var val = document.myForm.group1;
-
 for(var i = 0; i < val.length; i++) {
   val[i].onclick = function() {
     if (this.value==1) {

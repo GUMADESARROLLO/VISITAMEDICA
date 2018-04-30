@@ -64,34 +64,68 @@ function listandoVst3M() {
             "search":     "BUSCAR"
         },
         'columns': [
-			{ "title": "RUTA", "data": "RUTA" },
-			{ "title": "VENTA", "data": "VENTA" },
-			{ "title": "META", "data": "META" },
+        	{ "title": "CÓDIGO", "data": "COD" },
+			{ "title": "VISITADOR", "data": "NOMBRE" },
+			{ "title": "ACUMULADO MES", "data": "VENTA" },
+			{ "title": "META MES", "data": "META" },
 			{ "title": "RESTANTE", "data": "RES" },
-			{ "title": "VST 3M", "data": "VST3M" }
+			{ "title": "VST 3M", "data": "VST3M" },
+			{ "title": "RUTAS", "data": "RUTAS" }
         ],
         "columnDefs": [
-        	{"className": "dt-center", "targets": [0]},
-        	{"className": "dt-right", "targets": [ 1, 2, 3, 4 ]}
+        	{"className": "dt-left", "targets": [1]},
+        	{"className": "dt-center", "targets": [0,5]},
+        	{"className": "dt-right", "targets": [ 1, 2, 3, 4 ]},
+        	{ "width": "20%", "targets": [ 1 ] }
       	],
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+            
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/([C$,<span style="color:green"><span style="color:red"></span>])/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+			};
+            for (var ii = start; ii <= end; ii++) {
+            	if (ii!='0') {
+            		if (ii!='1') {
+            			if(ii!=end) {
+				            total = api 
+				                .column( ii )
+				                .data()
+				                .reduce( function (a, b) {
+				                    return intVal(a) + intVal(b);
+				                }, 0 );
+
+				            $( api.column( ii ).footer() ).html(
+				                'C$ '+numeral(total).format('0,0.00')
+				            );
+            			}
+            		}else if (ii=='1') {
+		            	$( api.column( ii ).footer() ).html('TOTALES: ');
+            		}
+            	}
+            }
+        },
         "fnInitComplete": function (data) {        	 	
         	loadingPage(false);
         }
 	});
 }
 
-function detalleTalonario(ruta) {
-	window.location.href = "detalleVentas/"+ruta;
+function detalleTalonario(visitador) {
+	window.location.href = "detalleVentas/"+visitador;
 }
 
 $("#buscar").on('change', function () {
 	loadingPage(true);
 	var filtro = $(this).val();
-	var ruta = $('#ruta').val();
+	var visitador = $('#visitador').val();
 	var contenido="";
 	if (filtro!="") {    
 	    $.ajax({
-	        url: '../busqueda/' + filtro + '/' + tipo1 + '/' + ruta,
+	        url: '../busqueda/' + filtro + '/' + tipo1 + '/' + visitador,
 	        type: 'post',
 	        async: true,
 	        success: function(data) {
@@ -149,11 +183,14 @@ $("#buscar").on('change', function () {
 					$("#ctsArt").empty();
 					var color="";
 			            $.each(JSON.parse(data), function(i, item) {
+			            var texto = "";
 		            	var pend = (item['mCant'])-(item['mCnAc']);
 		            	
 		            	if (parseInt(item['mCnAc'])<parseInt(item['mCant'])) {
+		            		texto = "Pendiente";
 		            		color = "style='color:red'";
 		            	}else if (parseInt(item['mCnAc'])>=parseInt(item['mCant'])) {
+		            		texto = "Excedente";
 		            		color = "style='color:green'";
 		            		pend = pend*(-1);
 		            	}
@@ -164,7 +201,7 @@ $("#buscar").on('change', function () {
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cuota:</b> `+item['mCant']+`</span></div>
 											<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
-											<div class="col s12 m4"><span `+color+`><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
+											<div class="col s12 m4"><span `+color+`><b>`+texto+`:</b> `+parseInt(pend)+`</span></div>
 										</div></li>`;
 
 			            });
@@ -185,12 +222,12 @@ $("#buscar").on('change', function () {
 
 function changeTabs(tipo) {
 	loadingPage(true);
-	var ruta = $('#ruta').val();
+	var visitador = $('#visitador').val();
 	var contenido = "";
 	tipo1 = tipo;
 
     $.ajax({
-        url: '../tabs/' + tipo + '/' + ruta,
+        url: '../tabs/' + tipo + '/' + visitador,
         type: "post",
         async: true,
         success: function(data) {
@@ -248,11 +285,14 @@ function changeTabs(tipo) {
 					$("#ctsArt").empty();
 					var color="";
 		            $.each(JSON.parse(data), function(i, item) {
+		            	var texto = "";
 		            	var pend = (item['mCant'])-(item['mCnAc']);
 		            	
 		            	if (parseInt(item['mCnAc'])<parseInt(item['mCant'])) {
+		            		texto = "Pendiente";
 		            		color = "style='color:red'";
 		            	}else if (parseInt(item['mCnAc'])>=parseInt(item['mCant'])) {
+		            		texto = "Excedente";
 		            		color = "style='color:green'";
 		            		pend = pend*(-1);
 		            	}
@@ -264,7 +304,7 @@ function changeTabs(tipo) {
 										<div class="row">
 											<div class="col s12 m4"><span><b>Cuota:</b> `+item['mCant']+`</span></div>
 											<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
-											<div class="col s12 m4"><span `+color+`><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
+											<div class="col s12 m4"><span `+color+`><b>`+texto+`:</b> `+parseInt(pend)+`</span></div>
 										</div></li>`;
 						});
 		            $("#ctsArt").append(contenido);
@@ -283,17 +323,17 @@ $('#select1').on('change', function() {
     table.page.len( cantRows ).draw();
 })
 
-function historial3M(ruta) {
-	window.location.href = "../historial/"+ruta;
+function historial3M(visitador) {
+	window.location.href = "../historial/"+visitador;
 }
 
 function detalleVts(val, tipo) {
  	$('#detalleTemp').empty();
- 	var ruta = $('#ruta').val();
+ 	var visitador = $('#visitador').val();
  	var contentModal = "";
 
     $.ajax({
-        url: '../detalle/' + val + '/' + tipo + '/' + ruta,
+        url: '../detalle/' + val + '/' + tipo + '/' + visitador,
         type: "post",
         async: true,
         success: function(data) {
