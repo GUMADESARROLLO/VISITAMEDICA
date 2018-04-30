@@ -21,11 +21,11 @@ $(window).scroll(function() {
 
 function changeTabs(tipo) {
 	loadingPage(true);
-	var ruta = $('#ruta').val();	
+	var visitador = $('#visitador').val();	
 	var contenido = "";
 	tipo1 = tipo;
     $.ajax({
-        url: '../tabs2/' + tipo + '/' + ruta,
+        url: '../tabs2/' + tipo + '/' + visitador,
         type: "post",
         async: true,
         success: function(data) {
@@ -79,34 +79,6 @@ function changeTabs(tipo) {
 		            });
 		            $("#vstCLA").append(contenido);
 				break;
-				case "4":
-					$("#ctsArt").empty();
-					var color="";
-		            $.each(JSON.parse(data), function(i, item) {
-		            	var pend = (item['mCant'])-(item['mCnAc']);
-		            	
-		            	if (parseInt(item['mCnAc'])<parseInt(item['mCant'])) {
-		            		color = "style='color:red'";
-		            	}else if (parseInt(item['mCnAc'])>=parseInt(item['mCant'])) {
-		            		color = "style='color:green'";
-		            		pend = pend*(-1);
-		            	}
-
-		            	contenido += `<li class="collection-item avatar">
-		  								<i class="material-icons circle">local_mall</i>
-		  								<span class="title">`+item['mDesc']+`</span><br>
-		  								`+item['mArti']+`
-										<div class="row">
-											<div class="col s12 m4"><span><b>Cuota:</b> `+item['mCant']+`</span></div>
-											<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
-											<div class="col s12 m4"><span `+color+`><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
-										</div></li>`;
-
-
-
-		            });
-		            $("#ctsArt").append(contenido);
-				break;
 			}
 		}
 	}).done( function (data) {
@@ -117,11 +89,11 @@ var tipo1 = "";
 $("#buscar3M").on('change', function () {
 	loadingPage(true);
 	var filtro = $(this).val();
-	var ruta = $('#ruta').val();
+	var visitador = $('#visitador').val();
 	var contenido="";
 	if (filtro!="") {    
 	    $.ajax({
-	        url: '../busqueda3M/' + filtro + '/' + tipo1 + '/' + ruta,
+	        url: '../busqueda3M/' + filtro + '/' + tipo1 + '/' + visitador,
 	        type: 'post',
 	        async: true,
 	        success: function(data) {
@@ -175,31 +147,7 @@ $("#buscar3M").on('change', function () {
 
 			            });
 			            $("#vstCLA").append(contenido);
-					case "4":
-					$("#ctsArt").empty();
-					var color="";
-			            $.each(JSON.parse(data), function(i, item) {
-			            	var pend = (item['mCant'])-(item['mCnAc']);
-
-
-
-			            	contenido += `<li class="collection-item avatar">
-			  								<i class="material-icons circle">local_mall</i>
-			  								<span class="title">`+item['mDesc']+`</span><br>
-			  								`+item['mArti']+`
-											<div class="row">
-												<div class="col s12 m4"><span><b>Cuota:</b> `+item['mCant']+`</span></div>
-												<div class="col s12 m4"><span><b>Vendido:</b> `+item['mCnAc']+`</span></div>
-												<div class="col s12 m4"><span id="pen"><b>Pendiente:</b> `+parseInt(pend)+`</span></div>
-											</div></li>`;
-
-			            	if (item['mCnAc']<item['mCant']) {
-			            		$("#pen").css("color", "red");
-			            	}
-
-			            });
-			            $("#ctsArt").append(contenido);
-					break;
+			        break;
 				}
 	    	}else {
 	    		Materialize.toast("Ups...No hemos podido encontrar algo con esa descripción!", 4000, 'rounded');

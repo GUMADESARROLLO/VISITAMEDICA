@@ -7,7 +7,19 @@
 	</div>
 	<div class="row">
 		<div class="col s12 m12">
-            <table id="tblVtsTotales" class="display" cellspacing="0" width="100%"></table>
+            <table id="tblVtsTotales" class="display" cellspacing="0" width="100%">            	
+		        <tfoot>
+		            <tr>
+		            	<th></th>
+		                <th></th>
+		                <th></th>
+		            	<th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		            </tr>
+		        </tfoot>
+            </table>
 		</div>
 	</div>
 </div>
