@@ -16,8 +16,8 @@
 							<label for="F2">Hasta</label>
 		    			</div>
 		    			<div class="col s12 m4">
-							<label>Seleccione una Ruta</label>
-							<select class="browser-default" id="Ruta">
+							<label>Seleccione un visitador</label>
+							<select class="browser-default" id="visitador">
 							</select>
 		    			</div>
 		    		</div>
@@ -46,7 +46,7 @@
 	              				<div class="divider"></div>
 	            				<div class="row" style="padding-top: 12px; display: none;">
 	            					<div class="col s12 m12">
-	            						<span class="title-3">Productos</span>
+	            						<span class="title-3">Cumplimiento</span>
 									    <p class="right">
 									      <input name="group1" class="with-gap" value="2" type="radio" id="test2" />
 									      <label for="test2"></label>
@@ -82,7 +82,12 @@
 				  <span class="input-group-addon"><i class="small material-icons">search</i></span>
 				  <input type="text" class="form-control" id="txtBuscarRpt" placeholder="Buscar en reporte">
 				</div>
-				<table id="tblReporte" class="display" cellspacing="0" width="100%"></table>
+				<div id="content-tblReporte">
+					<table id="tblReporte" class="display" cellspacing="0" width="100%"></table>
+				</div>
+				<div id="content-temporal">
+									
+				</div>
 			</div>
 		</div>		
 	</div>

@@ -35,5 +35,5 @@ $route['guardarCambiosFarmacia'] = 'farmacias_controller/guardarCambiosFarmacia'
 
 /*RUTA: REPORTES*/
 $route['reportes'] = 'reportes_controller';
-$route['generarDataRpt/(:any)/(:any)/(:any)'] = 'reportes_controller/generarDataReporte/$1/$2/$3';
+$route['generarDataRpt/(:any)/(:any)/(:any)/(:any)'] = 'reportes_controller/generarDataReporte/$1/$2/$3/$4';
 $route['detalleRpt/(:any)'] = 'reportes_controller/detalleReporte/$1';

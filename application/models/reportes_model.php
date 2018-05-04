@@ -12,43 +12,146 @@ class reportes_model extends CI_Model {
         return $LINK;
     }
 
-    public function generadoDataRpt($f1, $f2, $ruta) {
+    public function generadoDataRpt($f1, $f2, $visitador, $tRpt) {
         $json = array();
         $i=0;
-        
-        $f1 = date('Y-m-d', strtotime($f1));
-        $f2 = date('Y-m-d', strtotime($f2));
 
-        if ($ruta=="ALL") {
-            $query = $this
-                    ->db
-                    ->where('Fecha >=', $f1.' 00:00:00')
-                    ->where('Fecha <=', $f2.' 23:59:59')
-                    ->get('log');
-        }else {
-            $query = $this
-                    ->db
-                    ->where('Fecha >=', $f1.' 00:00:00')
-                    ->where('Fecha <=', $f2.' 23:59:59')
-                    ->where('Ruta', $ruta)
-                    ->get('log');
+        switch ($tRpt) {
+            case 1:
+                $f1 = date('Y-m-d', strtotime($f1));
+                $f2 = date('Y-m-d', strtotime($f2));
+
+                if ($visitador=="ALL") {
+                    $query = $this
+                            ->db
+                            ->where('Fecha >=', $f1.' 00:00:00')
+                            ->where('Fecha <=', $f2.' 23:59:59')
+                            ->get('log');
+                }else {
+                    $query = $this
+                            ->db
+                            ->where('Fecha >=', $f1.' 00:00:00')
+                            ->where('Fecha <=', $f2.' 23:59:59')
+                            ->where('Ruta', $visitador)
+                            ->get('log');
+                }
+
+                if ($query->num_rows() > 0) {
+                    foreach ($query->result_array() as $key) {
+                        $json[$i]['F1'] = '<a href="#!"><i class="material-icons" id="icon-'.$key['IdLog'].'" style="color:green">add_circle</i></a>';
+                        $json[$i]['CODIGO'] = $key['Cliente'];
+                        $json[$i]['CLIENTE'] = $key['CLNombre'];
+                        $json[$i]['DESCRIPCION'] = $key['Descripcion'];
+                        $json[$i]['FECHA'] = date('d/m/Y g:ia', strtotime($key['Fecha']));
+                        $json[$i]['RUTA'] = $key['Ruta'];
+                        $json[$i]['IDLOG'] = $key['IdLog'];
+                        $i++;
+                    }
+                    echo json_encode($json);
+                }else {
+                    echo json_encode(false);
+                }
+                break;
+            case 2:
+                if ($visitador=="ALL") {
+                    $array = array();
+                    $i=0;
+
+                    $this->cargaTemporal();
+
+                    $rutas = $this
+                            ->db
+                            ->select("Rutas")
+                            ->where("Rol", 2)
+                            ->get("usuarios");
+
+
+
+                    $query = $this->db->query("SELECT * FROM cuotasmes GROUP BY ARTICULO");
+
+
+
+
+                    if ($query->num_rows()>0) {
+                        foreach ($query->result_array() as $key) {
+                            $array[$i]['ARTICULO'] = $key['ARTICULO'];
+                            $array[$i]['DESCRIPCION'] = $key['DESCRIPCION'];
+                            $array[$i]['CUOTAXVIS'] = $this->cuotaMes($rutas->result_array(), $key['ARTICULO']);
+                            $i++;
+                        }
+                    }
+                    echo json_encode($array);
+                }                
+                break;
+            default:
+                
+                break;
         }
+    }
 
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $key) {
-                $json[$i]['F1'] = '<a href="#!"><i class="material-icons" id="icon-'.$key['IdLog'].'" style="color:green">add_circle</i></a>';
-                $json[$i]['CODIGO'] = $key['Cliente'];
-                $json[$i]['CLIENTE'] = $key['CLNombre'];
-                $json[$i]['DESCRIPCION'] = $key['Descripcion'];
-                $json[$i]['FECHA'] = date('d/m/Y g:ia', strtotime($key['Fecha']));
-                $json[$i]['RUTA'] = $key['Ruta'];
-                $json[$i]['IDLOG'] = $key['IdLog'];
-                $i++;
+    public function cuotaMes($rutas, $articulo) {
+        $array=array();
+        $i=0;
+        foreach ($rutas as $key) {
+            $array_rt = array();
+            $RT = str_replace("'","", $key['Rutas']);
+            $index = explode(",", $RT);
+            
+            for ($ii = 0; $ii < count($index); $ii++) {
+                array_push($array_rt, $index[$ii]);
             }
-            echo json_encode($json);
+
+            $CC=$this
+                ->db
+                ->select("SUM(CANTIDAD) AS CC", FALSE)
+                ->where_in("RUTA", $array_rt)
+                ->where("ARTICULO", $articulo)
+                ->get('cuotasmes');
+
+            $CANT = $CC->result_array()[0]['CC'];
+            $FACT = $this->Lleva($articulo, $array_rt);
+
+            if ($FACT!=0 && $CANT!=0) {
+                $PORC = (($FACT) / ($CANT)) * 100;    
+            }else {
+                $PORC = 0;
+            }
+            $array[$i]['CANT'] = $CANT;
+            $array[$i]['FACT'] = $FACT;
+            $array[$i]['PORC'] = $PORC;
+            $array[$i]['VISI'] = $key['Rutas'];
+            $i++;
+        }
+        return $array;
+    }
+
+    public function Lleva($articulo, $rutas) {
+        $CCT = $this
+                ->db
+                ->select("SUM(CANT) AS CANT", FALSE)
+                ->where("ARTICULO", $articulo)
+                ->where_in('RUTA', $rutas)
+                ->get('temporal');
+
+        if ($CCT->result_array()[0]['CANT']!=null) {
+            return $CCT->result_array()[0]['CANT'];
         }else {
-            echo json_encode(false);
+            return 0;
         }        
+    }
+
+    public function cargaTemporal() {
+        $this->db->truncate('temporal');
+        $query = $this->sqlsrv->fetchArray("SELECT Cantidad AS CANT, ARTICULO AS ARTI, DESCRIPCION AS DESCR, RUTA AS RUTA FROM   vm_Mensuales_vstCLA",SQLSRV_FETCH_ASSOC);
+
+        foreach ($query as $key) {
+            $this->db->insert("temporal", array(
+                "CANT" => $key['CANT'],
+                "ARTICULO" => $key['ARTI'],
+                "DESCRIPCION" => $key['DESCR'],
+                "RUTA" => $key['RUTA']
+            ));
+        }
     }
 
     public function nombreCliente($IdCliente) {
@@ -249,3 +352,5 @@ class reportes_model extends CI_Model {
         }
     }
 }
+
+//$array[$i]['VISI'] = str_replace("'","", $key['Rutas']);
