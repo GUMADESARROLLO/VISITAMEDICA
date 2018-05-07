@@ -114,7 +114,7 @@ function listandoVst3M() {
 	});
 }
 
-function detalleTalonario(visitador) {
+function detalleVisitador(visitador) {
 	window.location.href = "detalleVentas/"+visitador;
 }
 
