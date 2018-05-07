@@ -30,10 +30,10 @@ class home_model extends CI_Model {
                 
                 $st='style="color:red"';
 
-                $json['data'][$i]['COD']='<a href="#!" onclick="detalleTalonario('."'".$key['IdUser']."'".')">'.$key['Usuario'].'</a>';
+                $json['data'][$i]['COD']='<a href="#!" onclick="detalleVisitador('."'".$key['IdUser']."'".')">'.$key['Usuario'].'</a>';
                 $json['data'][$i]['NOMBRE']=$key['Nombre_visitador'];
                 $json['data'][$i]['VENTA']='C$ '.number_format($V, 2);
-                $json['data'][$i]['META']='C$ '.number_format($M, 2);
+                $json['data'][$i]['META']='C$ '.number_format($this->Suma_meta($key['Rutas']));
                 $json['data'][$i]['VST3M']='C$ '.number_format($V3, 2);
                 $res=(($M)-($V));
                 if ((float)$V>=(float)$M) {
@@ -51,6 +51,44 @@ class home_model extends CI_Model {
         $this->sqlsrv->close();
     }
 
+    public function detalleVentasXRuta($visitador) {
+        $array = array();
+        $query = $this
+                ->db
+                ->where("IdUser", $visitador)
+                ->get("usuarios");
+
+        if (count($query)>0) {            
+            $temp = $this->totalesRutas($query->result_array()[0]['Rutas']);          
+            foreach ($query->result_array() as $key) {
+                $array['COD'] = $key['IdUser']; 
+                $array['NOMBRE'] = $key['Nombre_visitador'];
+                $array['VENTA'] = number_format($temp['V'], 2);
+                $array['META'] = number_format($this->Suma_meta($key['Rutas']), 2);
+                $array['VTS3'] = number_format($temp['V3'], 2);
+                $array['RUTAS'] = $key['Rutas'];
+            }            
+        }
+        return $array;
+    }
+
+    function Suma_meta($visitador){
+       $in_where = explode(",", str_replace(array("'"), "", $visitador));
+       $Rtn="0";
+       $this->db->select('VALOR');
+       $this->db->select_sum('VALOR');
+       $this->db->where_in('RUTA',$in_where);
+       $query = $this->db->get('cuotasmes');
+       if ($query->num_rows() > 0) {
+           foreach ($query->result_array() as $key) {
+               $Rtn = $key['VALOR'];
+           }
+       }else{
+           $Rtn = "";
+       }
+       return $Rtn;
+   }
+
     public function totalesRutas($rutas) {
         $conn = $this->open_database_connectionSQL();
 
@@ -61,26 +99,7 @@ class home_model extends CI_Model {
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
-    public function detalleVentasXRuta($visitador) {
-        $array = array();
-        $query = $this
-                ->db
-                ->where("IdUser", $visitador)
-                ->get("usuarios");
 
-        if (count($query)>0) {            
-            $temp = $this->totalesRutas($query->result_array()[0]['Rutas']);            
-            foreach ($query->result_array() as $key) {
-                $array['COD'] = $key['IdUser']; 
-                $array['NOMBRE'] = $key['Nombre_visitador'];
-                $array['VENTA'] = number_format($temp['V'], 2);
-                $array['META'] = number_format($temp['M'], 2);
-                $array['VTS3'] = number_format($temp['V3'], 2);
-                $array['RUTAS'] = $key['Rutas'];
-            }            
-        }
-        return $array;
-    }
     /*METODOS PARA DATA MENSUAL*/
     public function listandoData($tipo, $visitador) {
         $i = 0;
