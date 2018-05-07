@@ -18,8 +18,8 @@ class reportes_controller extends CI_Controller {
         $this->load->view('jsView/js_reportes');
 	}
 
-	public function generarDataReporte($f1, $f2, $ruta) {
-		$this->reportes_model->generadoDataRpt($f1, $f2, $ruta);
+	public function generarDataReporte($f1, $f2, $visitador, $tRpt) {
+		$this->reportes_model->generadoDataRpt($f1, $f2, $visitador, $tRpt);
 	}
 
 	public function detalleReporte($IdLog) {

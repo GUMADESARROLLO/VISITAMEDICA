@@ -197,8 +197,13 @@
   background-color: #bdbdbd;
 }
 
-#temporal, #detalleReporte {
+#temporal {
   width: 80%;
+  min-height: 75%;
+}
+
+#detalleReporte {
+  width: 95%;
   min-height: 75%;
 }
 
@@ -308,4 +313,21 @@
   border-top-right-radius: 0rem;
   border-bottom-right-radius: 0rem;
   border-right: none;
+}
+
+.commmit-1 {
+  float: left;
+  width: 14.5%;
+  clear:both;
+  margin-bottom: 0px;
+  position: absolute;
+}
+
+@media only screen and (max-width: 1024px) {
+  .commmit-1 {
+    width: 90%;
+    margin: 0 auto;
+    float: none;
+    position: relative;
+  }
 }
