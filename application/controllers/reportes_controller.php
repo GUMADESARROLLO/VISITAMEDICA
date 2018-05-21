@@ -26,12 +26,27 @@ class reportes_controller extends CI_Controller {
 		$this->reportes_model->detalleReporte($IdLog);
 	}
 
+	public function rptCumplimiento() {
+        $this->load->view('header/header');
+        $this->load->view('Pages/Reportes/cumplimiento');
+        $this->load->view('footer/footer');
+        $this->load->view('jsView/js_reporteCump');
+	}
+
+	public function rptDataCumplimiento() {
+		$this->reportes_model->reporteCumplimiento();
+	}
+
 	public function listandoRutas() {
 		$this->reportes_model->listandoRutas();
 	}
 
 	public function exportarDataExcel($f1,$f2,$ruta) {
 		$this->reportes_model->generarExcel($f1,$f2,$ruta);
+	}
+
+	public function exportarDataExcelCump() {
+		$this->reportes_model->generarExcelCump();
 	}
 }
 ?>

@@ -14,7 +14,7 @@
 			<?php
 				if ($rutas) {				
 					foreach ($rutas as $key) {
-						echo '<option value="'.$key['Ruta'].'"><b>'.$key['Ruta'].'</b></option>';
+						echo '<option value="'.$key['value'].'"><b>'.$key['desc'].'</b></option>';
 					}
 				}
 			?>

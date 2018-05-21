@@ -14,16 +14,17 @@ class medicos_model extends CI_Model {
                 ->select('NombreMedico')
                 ->select('Especialidad')
                 ->select('Direccion')
-                ->select('TelfClinica')
+                ->select('Celular')
+                ->select('Ruta')
                 ->get('medicos');
 
         if ($query->num_rows()>0) {
             foreach ($query->result_array() as $key) {
-                $json[$i]['CODIGO'] = '<a href="#!" onclick="detalleMedico('."'".$key['IdMedico']."'".')">'.$key['IdMedico'].'</a>';
-                $json[$i]['NOMBRE'] = $key['NombreMedico'];
+                $json[$i]['NOMBRE'] = '<a href="#!" onclick="detalleMedico('."'".$key['IdMedico']."'".')">'.$key['NombreMedico'].'</a>'; $key['NombreMedico'];
                 $json[$i]['ESPECIALIDAD'] = $this->especialidad($key['Especialidad']);
                 $json[$i]['DIRECCION'] = $key['Direccion'];
-                $json[$i]['TELFCLINICA'] = $key['TelfClinica'];
+                $json[$i]['CELULAR'] = $key['Celular'];
+                $json[$i]['VISITADOR'] = $this->nombreVisitador((string)$key['Ruta']);
                 $i++;
             }
         }else {
@@ -32,6 +33,7 @@ class medicos_model extends CI_Model {
             $json[$i]['ESPECIALIDAD'] = 'Sin registros aún...';
             $json[$i]['DIRECCION'] = '';
             $json[$i]['TELFCLINICA'] = '';
+            $json[$i]['VISITADOR'] = '';
         }
         echo json_encode($json);
     }
@@ -48,6 +50,20 @@ class medicos_model extends CI_Model {
             $especialidad = $query->result_array()[0]['Especialidad'];
         }
         return $especialidad;
+    }
+
+    public function nombreVisitador($codVisitador) {
+        $nombreVisitador="";
+        $query = $this
+                ->db
+                ->select("Nombre_visitador")
+                ->where("Usuario", $codVisitador)
+                ->get("usuarios");
+
+        if ($query->num_rows()>0) {
+            $nombreVisitador = $query->result_array()[0]['Nombre_visitador'];
+        }
+        return $nombreVisitador;
     }
 
     public function detalleMedico($codMedico) {

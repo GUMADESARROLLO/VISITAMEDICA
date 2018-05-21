@@ -1,9 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
   inicializaControlFecha();
-  $('.modal').modal();
   listandoRutas();
-  $('ul.tabs').tabs('select_tab', 'tab_id');
+  $('.modal').modal();
 });
 
 function listandoRutas() {
@@ -24,12 +23,27 @@ for(var i = 0; i < val.length; i++) {
       $("#descReporte").text(`Genera un reporte sobre las últimas visitas realizadas por los agentes.`);
       $("#icon-rpt").text("person_pin_circle");
       $("#tip-rpt").text("Reporte de visitas");
+
+      //DESBLOQUEAR CONTROLES SUPERIORES
+      $('#visitador').prop('disabled', false);
+      $('#F1').prop('disabled', false);
+      $('#F2').prop('disabled', false);
+      $('#F1').css('color', '#000000');
+      $('#F2').css('color', '#000000');
+
     } else if (this.value==2) {
       tReporte=2;
       $("#descReporte").empty();
       $("#descReporte").text("Genera un reporte sobre el actual cumplimiento de metas por articulos.");
       $("#icon-rpt").text("assistant_photo");
       $("#tip-rpt").text("Reporte de cumplimiento");
+
+      //BLOQUEAR CONTROLES SUPERIORES
+      $('#visitador').prop('disabled', 'disabled');
+      $('#F1').prop('disabled', 'disabled');
+      $('#F2').prop('disabled', 'disabled');
+      $('#F1').css('color', '#9e9e9e');
+      $('#F2').css('color', '#9e9e9e');
     }
   };
 }
@@ -43,15 +57,18 @@ $("#generarRpt").click( function() {
   var f1 = $("#F1").val();
   var f2 = $("#F2").val();
   var visitador = $("#visitador").val();
-  var val = document.myForm.group1;
 
   if (f1=="" || f2=="" || visitador==null) {
     Materialize.toast("Necesita rellenar todos campos de Filtrar por...", 4000, 'rounded');
   }else if (val.value=="") {
     Materialize.toast("Ups... Tiene que seleccionar el tipo de reporte", 4000, 'rounded');
   }else {
-    tipoReporte = tReporte;
-    generarReporte(f1, f2, visitador, tipoReporte);
+    if (val.value==2) {
+      window.location.href = "cumplimiento";
+    }else {
+      tipoReporte = tReporte;
+      generarReporte(f1, f2, visitador, tipoReporte);
+    }
   }
 });
 
@@ -61,7 +78,7 @@ $("#imprimirRpt").click( function() {
   }else {
     var f1 = $("#F1").val();
     var f2 = $("#F2").val();
-    var ruta = $("#Ruta").val();
+    var ruta = $("#visitador").val();
     location.href = "../index.php/reportes_controller/exportarDataExcel/"+f1+"/"+f2+"/"+ruta;
   }
 });
@@ -127,61 +144,6 @@ function generarReporte( f1, f2, visitador, tipoReporte ) {
       });
           break;
       case 2:
-          $('#content-temporal').show();
-          $('#content-tblReporte').hide();
-          $("#tModal").text("REPORTE DE CUMPLIMIENTO");
-          $("#txtBuscarRpt").val("");
-
-          $.ajax({
-              url: "generarDataRpt/"+ f1 + '/' + f2 + '/' + visitador + '/' + tipoReporte,
-              type: 'post',
-              async: true,
-              success: function(data) {
-                  var tbody = "";
-                  if (data!=false) {
-
-                    $.each(JSON.parse(data), function(i, item) {
-                      tbody += '<tr><td width="5%">'+item['ARTICULO']+'</td>';
-                      tbody += '<td width="15%">'+item['DESCRIPCION']+'</td>';
-                      tbody += `
-                              
-                                <td>100</td>
-                                <td>20</td>
-                                <td>23</td>
-                                <td>100</td>
-                                <td>20</td>
-                                <td>23</td>
-                              </tr>`;
-                    });
-
-                    var table1 =
-                    `<br><table id="tblTemporal" cellpadding="5" cellspacing="0" padding="" border="0" >
-                      <thead>
-                        <tr>
-                          <th colspan="2"></th>
-                          <th colspan="3">VM03</th>
-                          <th colspan="3">VM04</th>
-                        </tr>
-                        <tr>
-                          <th>ARTICULOS</th>
-                          <th>DESCRIPCION</th>
-                          <th colspan="3">otro</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      ` + tbody + `
-
-                      </tbody>
-                  </table>`;
-
-                  $("#content-temporal").append(table1);
-
-                  }else {
-                      Materialize.toast("Ups...ocurrio un problema al tratar de actualizar!", 4000, 'rounded');
-                  }
-              }
-          });
-
           break;
       default: 
           alert("Ups... Ocurrio un problema inesperado :(");
