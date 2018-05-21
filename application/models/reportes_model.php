@@ -18,6 +18,7 @@ class reportes_model extends CI_Model {
 
         switch ($tRpt) {
             case 1:
+                //REPORTE DE VISITAS
                 $f1 = date('Y-m-d', strtotime($f1));
                 $f2 = date('Y-m-d', strtotime($f2));
 
@@ -52,41 +53,35 @@ class reportes_model extends CI_Model {
                     echo json_encode(false);
                 }
                 break;
-            case 2:
-                if ($visitador=="ALL") {
-                    $array = array();
-                    $i=0;
-
-                    $this->cargaTemporal();
-
-                    $rutas = $this
-                            ->db
-                            ->select("Rutas")
-                            ->where("Rol", 2)
-                            ->get("usuarios");
-
-
-
-                    $query = $this->db->query("SELECT * FROM cuotasmes GROUP BY ARTICULO");
-
-
-
-
-                    if ($query->num_rows()>0) {
-                        foreach ($query->result_array() as $key) {
-                            $array[$i]['ARTICULO'] = $key['ARTICULO'];
-                            $array[$i]['DESCRIPCION'] = $key['DESCRIPCION'];
-                            $array[$i]['CUOTAXVIS'] = $this->cuotaMes($rutas->result_array(), $key['ARTICULO']);
-                            $i++;
-                        }
-                    }
-                    echo json_encode($array);
-                }                
+            case 2:               
                 break;
-            default:
-                
+            default:                
                 break;
         }
+    }
+
+    public function reporteCumplimiento() {
+        $array = array();
+        $i=0;
+        
+        $this->cargaTemporal();
+        $rutas = $this
+                ->db
+                ->select("Rutas")
+                ->where("Rol", 2)
+                ->get("usuarios");
+
+        $query = $this->db->query("SELECT * FROM cuotasmes GROUP BY ARTICULO");
+
+        if ($query->num_rows()>0) {
+            foreach ($query->result_array() as $key) {
+                $array[$i]['ARTICULO'] = $key['ARTICULO'];
+                $array[$i]['DESCRIPCION'] = $key['DESCRIPCION'];
+                $array[$i]['CUOTAXVIS'] = $this->cuotaMes($rutas->result_array(), $key['ARTICULO']);
+                $i++;
+            }
+        }
+        echo json_encode($array);
     }
 
     public function cuotaMes($rutas, $articulo) {
@@ -111,18 +106,27 @@ class reportes_model extends CI_Model {
             $CANT = $CC->result_array()[0]['CC'];
             $FACT = $this->Lleva($articulo, $array_rt);
 
-            if ($FACT!=0 && $CANT!=0) {
+            if ($CANT!=0) {
                 $PORC = (($FACT) / ($CANT)) * 100;    
             }else {
                 $PORC = 0;
             }
             $array[$i]['CANT'] = $CANT;
             $array[$i]['FACT'] = $FACT;
-            $array[$i]['PORC'] = $PORC;
-            $array[$i]['VISI'] = $key['Rutas'];
+            $array[$i]['PORC'] = number_format($PORC, 1);
+            $array[$i]['VISI'] = $this->retornaVisitador(substr($RT, 0, -4));
             $i++;
         }
         return $array;
+    }
+
+    public function retornaVisitador($rutas) {
+        $nVisitador =$this
+                    ->db
+                    ->select("Usuario")
+                    ->like('Rutas', $rutas)
+                    ->get("usuarios");        
+        return $nVisitador->result_array()[0]['Usuario'];
     }
 
     public function Lleva($articulo, $rutas) {
@@ -233,7 +237,168 @@ class reportes_model extends CI_Model {
             echo false;
         }        
     }
+    //GENERA EXCEL SOBRE EL CUMPLIMIENTO
+    public function generarExcelCump() {
+        $data=array(); $titulosColumnas=array(); $filter=array();
+        $i=0;
+        $RT = $this
+            ->db
+            ->select("Rutas")
+            ->where("Rol", 2)
+            ->get("usuarios");
 
+        $CCT = $this->db->query("SELECT * FROM cuotasmes GROUP BY ARTICULO");
+
+        if ($CCT->num_rows()>0) {
+            foreach ($CCT->result_array() as $key) {
+                $data[$i]['ARTICULO'] = $key['ARTICULO'];
+                $data[$i]['DESCRIPCION'] = $key['DESCRIPCION'];
+                $data[$i]['CUOTAXVIS'] = $this->cuotaMes($RT->result_array(), $key['ARTICULO']);
+                $i++;
+            }
+        }
+
+        $objPHPExcel = new PHPExcel();
+        $tituloReporte = "Reporte de cumplimiento";
+        array_push($titulosColumnas, 'ARTICULOS', 'DESCRIPCION');
+
+        for ($ii=0; $ii < count($data[0]['CUOTAXVIS']); $ii++) {
+            array_push($titulosColumnas, "CANTIDAD", "FACTURADO", "PORCENTAJE");
+        }
+        
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A1',$tituloReporte)
+                    ->setCellValue('A4',  $titulosColumnas[0])
+                    ->setCellValue('B4',  $titulosColumnas[1]);
+
+        $i=4; $ij=2; $RR = count($data[0]['CUOTAXVIS']) * 3;
+        for ($j=67;$j<=90;$j++) {
+            if ($ij<=$RR) {
+                $objPHPExcel->setActiveSheetIndex(0)
+                            ->setCellValue(chr($j).$i,$titulosColumnas[$ij]);
+                $objPHPExcel->getActiveSheet()->getColumnDimension(chr($j))->setWidth(12);
+            }else {
+                $objPHPExcel->setActiveSheetIndex(0)
+                            ->setCellValue(chr($j).$i,$titulosColumnas[$ij]);
+                $objPHPExcel->getActiveSheet()->getColumnDimension(chr($j))->setWidth(12);
+                $ij++;
+                break;
+            }
+            $ij++;
+        }
+
+        $estiloAliniadoRigth = array(
+            'alignment' =>  array(
+                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                    'wrap'          => TRUE
+        ));
+
+        $i=5; $k=0; $temp1=array();
+        foreach ($data as $key) {
+            $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('A'.$i,  $key['ARTICULO'])
+                        ->setCellValue('B'.$i,  $key['DESCRIPCION']); 
+            $jk=2;
+            for ($j=67;$j<=90;$j++) {
+                if ($jk<=$RR) {
+                    $objPHPExcel->setActiveSheetIndex(0)
+                                ->setCellValue(chr($j).$i,$key['CUOTAXVIS'][$k]['CANT']);
+                    $j++; $jk++;
+
+                    $objPHPExcel->setActiveSheetIndex(0)
+                                ->setCellValue(chr($j).$i,$key['CUOTAXVIS'][$k]['FACT']);
+                    $j++; $jk++;
+
+                    $objPHPExcel->setActiveSheetIndex(0)
+                                ->setCellValue(chr($j).$i,$key['CUOTAXVIS'][$k]['PORC']."%");
+                    $objPHPExcel->getActiveSheet()->getStyle(chr($j).$i)->applyFromArray($estiloAliniadoRigth);
+
+                    array_push($temp1, $key['CUOTAXVIS'][$k]['VISI']);
+                    $k++;
+                }else {
+                    break;
+                }
+                $jk++;
+            } 
+            $i++;
+            if ($k > 5) {
+                $k=0;
+            }
+            $filter = array_unique($temp1);
+        }
+
+        $estiloTituloColumnas = array(
+            'font' => array(
+                'name'      => 'Calibri',
+                'bold'      => true
+            ),
+            'alignment' =>  array(
+                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                    'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                    'wrap'          => TRUE
+        ));
+
+        //LISTA VISITADORES
+        $kj=3; $jj=0; $RR = count($data[0]['CUOTAXVIS']) * 3; $ji=0;
+        for ($j=67;$j<=90;$j++) {
+            if ($kj<=$RR) {
+                $objPHPExcel->setActiveSheetIndex(0)
+                            ->setCellValue(chr($j).'3',$filter[$jj]);
+                $ji=$j+2;                
+                $objPHPExcel->setActiveSheetIndex(0)
+                            ->mergeCells(chr($j).'3:'.chr($ji).'3');
+                $objPHPExcel->getActiveSheet()->getStyle(chr($j).'3:'.chr($ji).'3')->applyFromArray($estiloTituloColumnas);
+            }else {
+                $objPHPExcel->setActiveSheetIndex(0)
+                            ->mergeCells(chr($j).'3:'.chr($ji).'3');
+                $objPHPExcel->getActiveSheet()->getStyle(chr($j).'3:'.chr($ji).'3')->applyFromArray($estiloTituloColumnas);
+                break;
+            }
+            $kj++;$jj++;$j=$j+2;
+
+            if ($jj > 5) {
+                break;
+            }
+        }
+        $estiloTituloReporte = array(
+            'font' => array(
+                'name'      => 'Verdana',
+                'bold'      => true,
+                'italic'    => false,
+                'strike'    => false,
+                'size' =>18,
+                    'color'     => array(
+                        'rgb' => '212121'
+                    )
+            ),
+            'alignment' =>  array(
+                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                    'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                    'rotation'   => 0,
+                    'wrap'       => TRUE,
+            )
+        );
+
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->mergeCells('A1:'.chr($j).'1');
+        $objPHPExcel->getActiveSheet()->getStyle('A1:'.chr($j).'1')->applyFromArray($estiloTituloReporte);
+
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(70);
+        $objPHPExcel->getActiveSheet()->setTitle('Reporte cumplimiento');        
+        $objPHPExcel->setActiveSheetIndex(0);        
+        $objPHPExcel->getActiveSheet(0)->freezePane('A5');
+        $objPHPExcel->getActiveSheet(0)->freezePaneByColumnAndRow(0,5);
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Reporte cumplimiento '.date('d/m/Y').'.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+    }
+
+    //GENERA EXCEL DE VISITAS,...
     public function generarExcel($f1,$f2,$ruta) {
         $f1 = date('Y-m-d', strtotime($f1));
         $f2 = date('Y-m-d', strtotime($f2));
@@ -275,7 +440,7 @@ class reportes_model extends CI_Model {
             foreach ($resultado->result_array() as $key) {
                 $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('A'.$i,  $key['Cliente'])
-                        ->setCellValue('B'.$i,  $this->nombreCliente($key['Cliente']))
+                        ->setCellValue('B'.$i,  $key['CLNombre'])
                         ->setCellValue('C'.$i,  $key['Descripcion'])
                         ->setCellValue('D'.$i,  date('d/m/Y g:ia', strtotime($key['Fecha'])))
                         ->setCellValue('E'.$i,  $key['Ruta']);
@@ -326,12 +491,7 @@ class reportes_model extends CI_Model {
             $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(22);
             $objPHPExcel->getActiveSheet()->getStyle('A1:E1')->applyFromArray($estiloTituloReporte);
             $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray($estiloTituloColumnas);       
-            $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:E".($i-1));            
-                    
-            /*for($i = 'A'; $i <= 'B'; $i++) {
-                $objPHPExcel->setActiveSheetIndex(0)            
-                    ->getColumnDimension($i)->setWidth(10);
-            }*/
+            $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:E".($i-1));
             
             $objPHPExcel->getActiveSheet()->setTitle('Reporte visita');
             
@@ -345,12 +505,10 @@ class reportes_model extends CI_Model {
             header('Cache-Control: max-age=0');
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $objWriter->save('php://output');            
+            $objWriter->save('php://output');       
         }
-        else{
+        else {
             print_r('No hay resultados para mostrar');
         }
     }
 }
-
-//$array[$i]['VISI'] = str_replace("'","", $key['Rutas']);

@@ -12,12 +12,12 @@
 		    			</div>
 		    			<div class="input-field col s12 m4">
 							<i class="material-icons prefix">date_range</i>
-							<input id="F2" type="text" class="input-fecha" value="" >
+							<input id="F2" type="text" class="input-fecha" readonly value="" >
 							<label for="F2">Hasta</label>
 		    			</div>
 		    			<div class="col s12 m4">
 							<label>Seleccione un visitador</label>
-							<select class="browser-default" id="visitador">
+							<select class="browser-default" id="visitador" readonly="readonly">
 							</select>
 		    			</div>
 		    		</div>
@@ -44,7 +44,7 @@
 	            					</div>            					
 	            				</div>
 	              				<div class="divider"></div>
-	            				<div class="row" style="padding-top: 12px; display: none;">
+	            				<div class="row" style="padding-top: 12px;">
 	            					<div class="col s12 m12">
 	            						<span class="title-3">Cumplimiento</span>
 									    <p class="right">
@@ -84,9 +84,6 @@
 				</div>
 				<div id="content-tblReporte">
 					<table id="tblReporte" class="display" cellspacing="0" width="100%"></table>
-				</div>
-				<div id="content-temporal">
-									
 				</div>
 			</div>
 		</div>		

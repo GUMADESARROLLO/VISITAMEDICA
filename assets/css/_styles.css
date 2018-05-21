@@ -149,6 +149,7 @@
 }
 
 .dt-left {
+  padding-left: 30px;
   text-align: left;
 }
 /*FIN ESTILO DATATABLE*/
@@ -243,10 +244,21 @@
 .fixed-action-btn2 {
   position: absolute;
   left: 5%;
-  top: 9.5%;
+  top: 8.0%;
   transform: translate(0%, -50%);
     -webkit-transform: translate(0%, -50%);
   z-index: 500;
+}
+
+@media only screen and (max-width: 1600px) {
+.fixed-action-btn2 {
+    position: absolute;
+    left: 5%;
+    top: 8.0%;
+    transform: translate(0%, -50%);
+      -webkit-transform: translate(0%, -50%);
+    z-index: 500;
+  }
 }
 
 #select1 {
@@ -321,6 +333,56 @@
   clear:both;
   margin-bottom: 0px;
   position: absolute;
+}
+
+#tblTemporal th, td {
+   border: #E2E2E2 1px solid;
+   vertical-align: middle;
+   text-align: center;
+}
+
+#tblTemporal th {
+   text-align: center;
+}
+
+#tblTemporal td {
+   text-align: center;
+}
+
+.d-t {
+  width: 4.5rem;
+  font-size: 12px;
+}
+
+
+#tblTemporal {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#content-table {
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 96%;
+}
+
+.estilo1 {
+  background: #eeeeee;
+  padding: 1px;
+}
+
+.estilo2 {
+  background: #f5f5f5;
+  padding: 1px;
+}
+
+#tblTemporal1 {
+    position: fixed;
+    border-collapse: collapse;
+    top: 0px;
+    width: 96%;
+    display:none;
 }
 
 @media only screen and (max-width: 1024px) {

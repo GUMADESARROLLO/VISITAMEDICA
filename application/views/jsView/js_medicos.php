@@ -60,14 +60,16 @@ function listandoMedicos() {
             "search":     "BUSCAR"
         },
         'columns': [
-			{ "title": "CODIGO", "data": "CODIGO" },
 			{ "title": "NOMBRE COMPLETO", "data": "NOMBRE" },
 			{ "title": "ESPECIALIDAD", "data": "ESPECIALIDAD" },
 			{ "title": "DIRECCION", "data": "DIRECCION" },
-            { "title": "TELF. CLINICA", "data": "TELFCLINICA" }
+            { "title": "CELULAR", "data": "CELULAR" },
+            { "title": "VISITADOR", "data": "VISITADOR" }
         ],
         "columnDefs": [
-        	{"className": "dt-center", "targets": [0, 1, 2, 3, 4]},
+            {"className": "dt-left", "targets": [0,2]},
+        	{"className": "dt-center", "targets": [1, 3, 4 ]},
+            { "width": "20%", "targets": [ 1, 4] }
       	],
         "fnInitComplete": function () {      	
         	loadingPage(false);

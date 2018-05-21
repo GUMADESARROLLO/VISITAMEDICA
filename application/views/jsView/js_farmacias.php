@@ -176,16 +176,20 @@ function listandoFarmacias() {
             "search":     "BUSCAR"
         },
         'columns': [
-			{ "title": "CODIGO", "data": "IDFARMACIA" },
-			{ "title": "NOMBRE", "data": "NOMBREFARMACIA" },
-			{ "title": "DIRECCION", "data": "DIRECCION" },
-			{ "title": "PROPIETARIO", "data": "NOMBREPROPIETARIO" },
-      { "title": "RUTA ", "data": "RUTA" },
+          { "title": "NOMBRE", "data": "CODIGO" },
+    			{ "title": "NOMBRE", "data": "NOMBREFARMACIA" },
+    			{ "title": "PROPIETARIO", "data": "NOMBREPROPIETARIO" },
+          { "title": "DIRECCION", "data": "DIRECCION" },
+          { "title": "VISITADOR", "data": "RUTA" },
         ],
         "columnDefs": [
-        	{"className": "dt-center", "targets": [0, 3, 4]},
-          {"className": "dt-left", "targets": [ 1, 2] },
-          { "width": "20%", "targets": [ 1, 3 ] }
+          {
+              "targets": [ 0 ],
+              "visible": false
+          },
+        	{"className": "dt-center", "targets": [ 4 ]},
+          {"className": "dt-left", "targets": [ 1 , 3 ] },
+          { "width": "20%", "targets": [ 1, 2, 4 ] }
       	],
         "fnInitComplete": function () {   	
         	loadingPage(false);

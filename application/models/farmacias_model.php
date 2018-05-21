@@ -13,11 +13,11 @@ class farmacias_model extends CI_Model {
                 ->get('farmacias');
         if ($query->num_rows()>0) {
             foreach ($query->result_array() as $key) {
-                $json[$i]['IDFARMACIA'] = '<a href="#!" onclick="detalleFarmacia('."'".$key['IdFarmacia']."'".')">'.$key['IdFarmacia'].'</a>';
-                $json[$i]['NOMBREFARMACIA'] = $key['NombreFarmacia'];
+                $json[$i]['CODIGO'] = $key['Ruta'];
+                $json[$i]['NOMBREFARMACIA'] = '<a href="#!" onclick="detalleFarmacia('."'".$key['IdFarmacia']."'".')">'.$key['NombreFarmacia'].'</a>';
                 $json[$i]['DIRECCION'] = $key['Direccion'];
                 $json[$i]['NOMBREPROPIETARIO'] = $key['NombrePropietario'];
-                $json[$i]['RUTA'] = $key['Ruta'];
+                $json[$i]['RUTA'] = $this->nombreVisitador( $key['Ruta']);
                 $i++; 
             }
         }else {
@@ -27,15 +27,21 @@ class farmacias_model extends CI_Model {
     }
 
     public function listandoRutas() {
+        $temp=array();
         $query = $this
                 ->db
+                ->distinct("Ruta")
                 ->select("Ruta")
-                ->distinct('Ruta')
-                ->order_by("Ruta","asc")
                 ->get("farmacias");
 
         if ($query->num_rows()>0) {
-            return $query->result_array();
+            foreach ($query->result_array() as $key) {
+                $temp[] = array(
+                    'value' => $key['Ruta'],
+                    'desc' => $this->nombreVisitador($key['Ruta'])
+                );    
+            }
+            return $temp;
         }else {
             return false;
         }
@@ -52,6 +58,20 @@ class farmacias_model extends CI_Model {
         }else {
             return false;
         }
+    }
+
+    public function nombreVisitador($codVisitador) {
+        $nombreVisitador="";
+        $query = $this
+                ->db
+                ->select("Nombre_visitador")
+                ->where("Usuario", $codVisitador)
+                ->get("usuarios");
+
+        if ($query->num_rows()>0) {
+            $nombreVisitador = $query->result_array()[0]['Nombre_visitador'];
+        }
+        return $nombreVisitador;
     }
 
     public function guardandoCambiosFarmacia($data) {
