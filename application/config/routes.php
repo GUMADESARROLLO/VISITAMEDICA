@@ -33,6 +33,13 @@ $route['listarFarmacias'] = 'farmacias_controller/listandoFarmacias';
 $route['informacionFarmacia/(:any)'] = 'farmacias_controller/detalleFarmacia/$1';
 $route['guardarCambiosFarmacia'] = 'farmacias_controller/guardarCambiosFarmacia';
 
+/*RUTA: PLAN TRABAJO*/
+$route['plan-trabajo'] = 'planTrabajo_controller';
+$route['plan-ruta/(:any)'] = 'planTrabajo_controller/planTrabajoSP/$1';
+$route['clientes/(:any)']	= 'planTrabajo_controller/listClientes/$1';
+$route['save']	= 'planTrabajo_controller/savePlan';
+$route['update']	= 'planTrabajo_controller/updatePlan';
+
 /*RUTA: REPORTES*/
 $route['reportes'] = 'reportes_controller';
 $route['generarDataRpt/(:any)/(:any)/(:any)/(:any)'] = 'reportes_controller/generarDataReporte/$1/$2/$3/$4';

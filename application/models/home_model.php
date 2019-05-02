@@ -42,6 +42,7 @@ class home_model extends CI_Model {
                 }
                 $json['data'][$i]['RES'] = '<span '.$st.'>C$ '.number_format($res, 2).'</span>';
                 $json['data'][$i]['RUTAS'] = '<span>'.str_replace("'", " ", $key['Rutas']).'</span>';
+                $json['data'][$i]['PLAN'] = '<a href="'.base_url("./index.php/plan-ruta/").$key['Usuario'].'"><i class="material-icons" style="color:black">today</i></a>';
                 $i++;
             }
         }else {
