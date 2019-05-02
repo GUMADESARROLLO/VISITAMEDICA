@@ -44,6 +44,7 @@ $(document).ready(function() {
     P = _F1.length-1;
     initPlanTrabajo(_F1[P])//Vista supervisor
     $(".totales").text("PLAN DE TRABAJO "+_F1[P])
+    $("#copy-plan").hide()
   }else if (pathname.match(/plan-trabajo.*/)) {
     initPlanTrabajo(2)//Vista usuario
   };
