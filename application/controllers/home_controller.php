@@ -12,10 +12,14 @@ class home_controller extends CI_Controller {
 	}
 
 	public function index() {
-        $this->load->view('header/header');
-        $this->load->view('Pages/home/home');
-        $this->load->view('footer/footer');
-        $this->load->view('jsView/js_home');
+        if ($this->session->userdata('rol')!=2) {
+            $this->load->view('header/header');
+            $this->load->view('Pages/home/home');
+            $this->load->view('footer/footer');
+            $this->load->view('jsView/js_home');
+        }else {
+            redirect('plan-trabajo');
+        }
 	}
 
     public function listandoRutas() {

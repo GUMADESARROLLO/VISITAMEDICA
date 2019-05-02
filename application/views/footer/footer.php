@@ -15,5 +15,8 @@
 <script type="text/javascript" src="<?PHP echo base_url();?>assets/js/moment.js"></script>
 <script type="text/javascript" src="<?PHP echo base_url();?>assets/js/Numeral.js"></script>
 <script type="text/javascript" src="<?PHP echo base_url();?>assets/js/daterangepicker.js"></script>
+<script type="text/javascript" src="<?PHP echo base_url();?>assets/js/fullcalendar.js"></script>
+<script type="text/javascript" src="<?PHP echo base_url();?>assets/js/locale-all.js"></script>
+<script type="text/javascript" src="<?PHP echo base_url();?>assets/js/mobiscroll.jquery.min.js"></script>
 </body>
 </html>

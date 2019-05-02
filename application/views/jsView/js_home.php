@@ -70,11 +70,12 @@ function listandoVst3M() {
 			{ "title": "META MES", "data": "META" },
 			{ "title": "RESTANTE", "data": "RES" },
 			{ "title": "VST 3M", "data": "VST3M" },
-			{ "title": "RUTAS", "data": "RUTAS" }
+			{ "title": "RUTAS", "data": "RUTAS" },
+			{ "title": "", "data": "PLAN" },
         ],
         "columnDefs": [
         	{"className": "dt-left", "targets": [1]},
-        	{"className": "dt-center", "targets": [0,5]},
+        	{"className": "dt-center", "targets": [0,5, 7]},
         	{"className": "dt-right", "targets": [ 1, 2, 3, 4 ]},
         	{ "width": "20%", "targets": [ 1 ] }
       	],

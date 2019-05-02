@@ -10,6 +10,9 @@
   top: 100px;
   left: 20px;
   /* Calendars */ }
+  .calendar-table table {
+    font-size: 11px !important
+  }
   .daterangepicker:before, .daterangepicker:after {
     position: absolute;
     display: inline-block;
@@ -178,7 +181,7 @@
 
 .ranges {
   font-size: 11px;
-  float: none;
+  float: none !important;
   margin: 4px;
   text-align: left; }
   .ranges ul {
