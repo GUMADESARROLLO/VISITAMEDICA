@@ -55,6 +55,7 @@ class planTrabajo_controller extends CI_Controller {
     }
 
     public function reutilizarPlan($F1, $F2) {
+
         $F1 = date("Y-m-d", strtotime($F1));
         $F2 = date("Y-m-d", strtotime($F2));
         $this->planTrabajo_model->cargaPlanAnterior($F1, $F2);
