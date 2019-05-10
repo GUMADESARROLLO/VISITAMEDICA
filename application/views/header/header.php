@@ -6,9 +6,11 @@
     <title>Visitadores Médicos</title>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--DATEPICKERS-->
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/daterangepicker.css" >
 	<!--FUENTE ICONS-->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fuente.css" >
-    <!--Import materialize.css-->
+    <!--Import materialize.css-->    
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>assets/css/materialize.css"  media="screen,projection"/>
 	<!--MI ESTILO-->
     <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>assets/css/_styles.css"  media="screen,projection"/>
@@ -17,9 +19,10 @@
     <!--ICONS RED SOCIAL-->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/materialdesignicons.min.css" >
     <!--CSS FULL CALENDAR-->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/fullcalendar.css" media="screen,projection">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/fullcalendar.css">
     <!--CSS FULL CALENDAR-->
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/daterangepicker.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/mobiscroll.jquery.min.css">
+    
 </head>
 <body>
 	<header class="demo-header mdl-layout__header">

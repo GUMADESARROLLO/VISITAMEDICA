@@ -1,52 +1,42 @@
 <script type="text/javascript">
 $(document).ready(function() {
-  //DATERANGEPICKER FILTRO POR FECHAS
-  $('#dom-id').dateRangePicker({
-    language: 'es',
-    singleMonth: true,
-    showShortcuts: false,
-    startOfWeek: 'monday',
-    separator : ' to ',
-    getValue: function()
-    {
-      if ($('#date-range200').val() && $('#date-range201').val() )
-        return $('#date-range200').val() + ' to ' + $('#date-range201').val();
-      else
-        return '';
-    },
-    setValue: function(s,s1,s2)
-    {
-      $('#date-range200').val(s1);
-      $('#date-range201').val(s2);
-      changeFecha(s1);
-    }
-  });
-  
-  //DATERANGEPICKER REUTILIZACION DE PLAN
-  $('#dom-id1').dateRangePicker({
-    language: 'es',
-    singleMonth: true,
-    showShortcuts: false,      
-    startOfWeek: 'monday',
-    separator : ' to ',
-    getValue: function()
-    {
-      $(".swal2-container").find( "input" ).val('');
-      if ($('#date-range200').val() && $('#date-range201').val() )
-        return $('#date-range200').val() + ' to ' + $('#date-range201').val();
-      else
-        return '';
-    },
-    setValue: function(s,s1,s2)
-    {
-      $('#date-range200').val(s1);
-      $('#date-range201').val(s2);
+  /*INICIO DATEPICKER*/
+  mobiscroll.settings = {
+      lang: 'es'
+  };
 
-      _Tx = $(".swal2-container").find( "#d1" );
-      _Tx.val(s1+' hasta '+s2)
-    }
+  var now = new Date(),
+      week = [now, new Date(now.getFullYear(), now.getMonth(), now.getDate() + 6, 23, 59)];
+
+  $('#demo').mobiscroll().range({
+      startInput: '#start',
+      endInput: '#end'
   });
-  
+
+  $('#date').mobiscroll().range({
+      startInput: '#startDate',
+      endInput: '#endDate',
+      controls: ['date']
+  });
+
+  $('#demo-non-form').mobiscroll().range({
+      showSelector: false
+  });
+
+  $('#demo-external').mobiscroll().range({
+      showOnTap: false,
+      showOnFocus: false,
+      showSelector: false,
+      onInit: function (event, inst) {
+          inst.setVal(week, true);
+      }
+  });
+
+  $('#show').click(function () {
+      $('#demo-external').mobiscroll('show');
+      return false;
+  });
+  /*FINALIZA DATEPICKER*/
 
   var pathname = window.location.pathname;
   if (pathname.match(/plan-ruta.*/)) {
@@ -59,11 +49,6 @@ $(document).ready(function() {
     initPlanTrabajo(2)//Vista usuario
   };
 });
-
-//FUNCION QUE CAMBIA CALENDARIO SEGUN FILTRO APLICADO
-function changeFecha(s1) {
-  $('#calendar').fullCalendar('gotoDate', s1);
-}
 
 function initPlanTrabajo(_par1) {
   var base_url = window.location.origin + '/' + window.location.pathname.split ('/') [1] + '/';
@@ -254,27 +239,32 @@ $("#copy-plan").click( function() {
   }).then((result) => {
     if (result.value) {
       _Fecha = $("#demo-non-form").val();
-      //F1 = _Fecha.substr(0,10).replace(/\//g, '-');
-      //F2 = _Fecha.substr(13,16).replace(/\//g, '-');
-
-      F1 = $("#date-range200").val();
-      F2 = $("#date-range201").val();
+      F1 = _Fecha.substr(0,10).replace(/\//g, '-');
+      F2 = _Fecha.substr(13,16).replace(/\//g, '-');
       location.href = "../index.php/planTrabajo_controller/reutilizarPlan/"+F1+"/"+F2;
     }
   });
 });
 
 $(document).on('click', '#d1', function(e) {
-  $('#dom-id1').click();
-  $('.date-picker-wrapper').css({
-    'z-index': '50000',
-    'position': 'absolute',
-    'left': '50%',
-    'top': '50%',
-    'transform': 'translate(-50%, -50%)',
-    '-webkit-transform': 'translate(-50%, -50%)'
-  });
-  return false;
+  $(".demo-non-form").trigger("click");
+});
+
+$("#demo-non-form").change(function(){
+  F1 = $('#demo-non-form').val();
+  $("#d1").val(F1);
+});
+
+$('#selector').on('change',function(){
+  $('#calendar').fullCalendar('rerenderEvents');
+});
+
+$(document).on('click', '.mbsc-fr-btn1', function(e) {
+  var _F1 = $("#demo-external").val().substr(0,10).split('/');
+  
+  _F1 = _F1[2]+'-'+_F1[1]+'-'+_F1[0];
+  $('#calendar').fullCalendar('gotoDate', _F1);
+
 });
 
 </script>
