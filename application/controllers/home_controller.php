@@ -12,13 +12,16 @@ class home_controller extends CI_Controller {
 	}
 
 	public function index() {
-        if ($this->session->userdata('rol')!=2) {
+        if ($this->session->userdata('rol')!=2  && $this->session->userdata('rol')!=3) {
             $this->load->view('header/header');
             $this->load->view('Pages/home/home');
             $this->load->view('footer/footer');
             $this->load->view('jsView/js_home');
-        }else {
+        }else if ($this->session->userdata('rol')!=1 && $this->session->userdata('rol')!=3){
             redirect('plan-trabajo');
+        }else {
+            redirect('ventas-terceros');
+        
         }
 	}
 

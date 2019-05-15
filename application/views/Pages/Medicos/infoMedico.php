@@ -43,10 +43,14 @@
 										<input id="IdMedico" type="hidden" class="validate edit" readonly value="'.$dm[0]['IdMedico'].'">
 										</div>
 										<div class="row">
-											<div class="input-field col s12 m12">
+											<div class="input-field col s12 m10">
 												<i class="material-icons prefix">person</i>
 												<input id="NombreMedico" type="text" class="validate edit" readonly value="'.$dm[0]['NombreMedico'].'">
 												<label for="NombreMedico">Nombre Completo</label>
+											</div>
+											<div class="col s12 m2">
+											<div style="font-size: 0.8em">Usuario del sistema</div>
+												<a class="waves-effect waves-light btn" id="btnCrearPassFarmacias" style=" font-size: 0.9em"></a>
 											</div>
 										</div>
 										<div class="row">

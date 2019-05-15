@@ -33,7 +33,73 @@ class farmacias_controller extends CI_Controller {
         $this->load->view('jsView/js_farmacias');
 	}
 
+	public function asignarLoginUsuarioSistema(){
+		 $data= array(
+            'Nombre_visitador' => $this->input->post('nombre'),
+            'Usuario' => $this->input->post('idUSer'),
+            'Password' => $this->input->post('pass'),
+            'Rol' => $this->input->post('rol'),
+            'Activo' => $this->input->post('activo'),
+            'idNombre' => $this->input->post('idNombre')
+        );
+
+		$this->farmacias_model->asignarLoginUsuarioSistema($data);
+
+	}
+
+
+	public function verificarExisteUsuarioDelSistema(){
+
+		 $data= array(
+		 	'idNombre' => $this->input->post('idNombre'),
+            'Nombre_visitador' => $this->input->post('Nombre')
+        );
+
+
+
+        $this->farmacias_model->verificarExisteUsuarioDelSistema($data);
+
+	}
+
+
+	public function obteberUltimoUsuarioDelSitema(){
+		$this->farmacias_model->obteberUltimoUsuarioDelSitema();
+	}
+
+
+	public function almacenarUltimoUsuarioDelSitema(){
+
+		$data = array('FARMACIA' => $this->input->post('intA_Asignar'));
+		$where = array('Ruta' => 'US1');
+		$this->farmacias_model->almacenarUltimoUsuarioDelSitema($data, $where);
+	}
+
+
+	public function activarUsuarioDelSistema(){
+		$data= array(
+			'idNombre' => $this->input->post('idNombre'),
+			'Usuario' => $this->input->post('Sistemuser'),
+	        'Nombre_visitador' => $this->input->post('nomUser')
+        );
+        $campo = array('Activo' => 1);
+		 $this->farmacias_model->activarUsuarioDelSistema($data,$campo);
+	}
+
+	public function desactivarUsuarioDelSistema(){
+		$data= array(
+			'idNombre' => $this->input->post('idNombre'),
+			'Usuario' => $this->input->post('Sistemuser'),
+	        'Nombre_visitador' => $this->input->post('nomUser')
+        );
+
+        $campo = array('Activo' => 0);
+ 		$this->farmacias_model->desactivarUsuarioDelSistema($data,$campo);
+ 		
+	}
+
+
 	public function guardarCambiosFarmacia() {
+		
         $this->farmacias_model->guardandoCambiosMedicos($this->input->post('data'));
 	}
 }

@@ -9,6 +9,7 @@ $route['login'] = 'login_controller';
 $route['acreditando'] = 'login_controller/validandoCredenciales';
 $route['salir'] = 'login_controller/salir';
 
+
 /*RUTA: HOME*/
 $route['home'] = 'home_controller';
 $route['listandoRutas'] = 'home_controller/listandoRutas';
@@ -32,6 +33,12 @@ $route['farmacias'] = 'farmacias_controller';
 $route['listarFarmacias'] = 'farmacias_controller/listandoFarmacias';
 $route['informacionFarmacia/(:any)'] = 'farmacias_controller/detalleFarmacia/$1';
 $route['guardarCambiosFarmacia'] = 'farmacias_controller/guardarCambiosFarmacia';
+$route['verificarExisteUsuarioDelSistema'] = 'farmacias_controller/verificarExisteUsuarioDelSistema';
+$route['obteberUltimoUsuarioDelSitema'] = 'farmacias_controller/obteberUltimoUsuarioDelSitema';
+$route['asignarLoginUsuarioSistema'] = 'farmacias_controller/asignarLoginUsuarioSistema';
+$route['almacenarUltimoUsuarioDelSitema'] = 'farmacias_controller/almacenarUltimoUsuarioDelSitema';
+$route['activarUsuarioDelSistema'] = 'farmacias_controller/activarUsuarioDelSistema';
+$route['desactivarUsuarioDelSistema'] = 'farmacias_controller/desactivarUsuarioDelSistema';
 
 /*RUTA: PLAN TRABAJO*/
 $route['plan-trabajo'] = 'planTrabajo_controller';
@@ -45,3 +52,22 @@ $route['reportes'] = 'reportes_controller';
 $route['generarDataRpt/(:any)/(:any)/(:any)/(:any)'] = 'reportes_controller/generarDataReporte/$1/$2/$3/$4';
 $route['detalleRpt/(:any)'] = 'reportes_controller/detalleReporte/$1';
 $route['cumplimiento'] = 'reportes_controller/rptCumplimiento';
+
+/*RUTA: VENTAS TERCEROS*/
+$route['ventas-terceros'] = 'ventasTerceros_controller';
+$route['listandoProductos'] = 'ventasTerceros_controller/listandoProductos';
+$route['AgregarNuevaVenta'] = 'ventasTerceros_controller/AgregarNuevaVenta';
+$route['AgregarDetalledeVenta'] = 'ventasTerceros_controller/AgregarDetalledeVenta';
+$route['UltimoRegistroVnts'] = 'ventasTerceros_controller/UltimoRegistroVnts';
+$route['getNewSellingData'] = 'ventasTerceros_controller/getNewSellingData';
+$route['getSelectedSellingDetailData/(:any)'] = 'ventasTerceros_controller/getSelectedSellingDetailData/$1';
+$route['cambiarEstadoVentas/(:any)/(:any)'] = 'ventasTerceros_controller/cambiarEstadoVentas/$1/$2';
+$route['NomUsuarioActual'] = 'ventasTerceros_controller/NomUsuarioActual';
+$route['filtrarxfechaCliente'] = 'ventasTerceros_controller/filtrarxfechaCliente';
+
+/*RUTA: VISUALIZAR VENTAS AGREGADAS DESDE EL SISTEMA*/
+$route['verVentasSist'] = 'verVentasSist_controller';
+$route['listandoUsuarios'] = 'verVentasSist_controller/listandoUsuarios';
+$route['getDataSellingUserSystem'] = 'verVentasSist_controller/getDataSellingUserSystem';
+$route['filtrarxfecha'] = 'verVentasSist_controller/filtrarxfecha';
+
