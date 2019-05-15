@@ -1,5 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
+         verificarUsuarioDelSistema();
 		$('.modal').modal();		
         var pathname = window.location.pathname;
         if (pathname.match(/medicos.*/)) {
@@ -9,7 +10,9 @@
             inicializaControlFecha();
             buttonReturn();
             especialidad();
+
         }
+       
 	});
 
 $("#txtBuscarMed").on("keyup", function () {
@@ -64,7 +67,9 @@ function listandoMedicos() {
 			{ "title": "ESPECIALIDAD", "data": "ESPECIALIDAD" },
 			{ "title": "DIRECCION", "data": "DIRECCION" },
             { "title": "CELULAR", "data": "CELULAR" },
-            { "title": "VISITADOR", "data": "VISITADOR" }
+            { "title": "VISITADOR", "data": "VISITADOR" },
+          { "title": "USUARIO", "data": "USUARIO" },
+          { "title": "CONTRASEÑA", "data": "CONTRASEÑA" }
         ],
         "columnDefs": [
             {"className": "dt-left", "targets": [0,2]},

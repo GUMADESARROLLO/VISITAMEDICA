@@ -155,7 +155,7 @@
 /*FIN ESTILO DATATABLE*/
 
 /*INPUT*/
-#buscar, #txtBuscar, #buscar3M, #txtBuscarMed, #txtBuscarFarm, #txtBuscarRpt {
+#buscar, #txtBuscar, #txtCantidad, #txtFechaNewFact, #txtCLienteNewFact, #txtContactNewFact, #buscar3M, #txtBuscarMed, #txtBuscarTransaccion, #txtBuscarFarm, #txtBuscarRpt {
   height: 42px;
   width: 100%;
   padding: 0px 10px;
@@ -432,3 +432,5 @@
     position: relative;
   }
 }
+
+
