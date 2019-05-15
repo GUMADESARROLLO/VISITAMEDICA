@@ -13,6 +13,9 @@ $(document).ready(function() {
           }
         });
     }
+
+verificarUsuarioDelSistema();
+
 });
 
 $("#txtBuscarFarm").on("keyup", function () {
@@ -181,6 +184,8 @@ function listandoFarmacias() {
     			{ "title": "PROPIETARIO", "data": "NOMBREPROPIETARIO" },
           { "title": "DIRECCION", "data": "DIRECCION" },
           { "title": "VISITADOR", "data": "RUTA" },
+          { "title": "USUARIO", "data": "USUARIO" },
+          { "title": "CONTRASEÑA", "data": "CONTRASEÑA" },
         ],
         "columnDefs": [
           {
@@ -200,4 +205,6 @@ function listandoFarmacias() {
 function detalleFarmacia(codFarmacia) {
     window.location.href = "informacionFarmacia/" + codFarmacia;
 }
+
+
 </script>

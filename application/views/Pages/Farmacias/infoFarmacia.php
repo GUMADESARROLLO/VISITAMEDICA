@@ -24,10 +24,15 @@
 										<input id="idFarmacia" type="hidden" class="validate edit" readonly value="'.$dt[0]['IdFarmacia'].'">
 										</div>
 										<div class="row">
-											<div class="input-field col s12 m12">
+											<div class="input-field col s12 m10">
 												<i class="material-icons prefix">store</i>
 												<input id="nombreFarmacia" type="text" class="validate edit" readonly value="'.$dt[0]['NombreFarmacia'].'">
 												<label for="nombreFarmacia">Nombre Farmacia</label>
+											</div>
+											<div class="col s12 m2">
+											<div style="font-size: 0.8em">Usuario del sistema</div>
+												<a class="waves-effect waves-light btn" id="btnCrearPassFarmacias" style=" font-size: 0.9em"></a>
+												
 											</div>
 										</div>
 										<div class="row">

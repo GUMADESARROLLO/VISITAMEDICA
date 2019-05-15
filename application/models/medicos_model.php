@@ -8,15 +8,14 @@ class medicos_model extends CI_Model {
     public function listandoMedicos() {
         $json = array();
         $i=0;
-        $query = $this
-                ->db
-                ->select('IdMedico')
-                ->select('NombreMedico')
-                ->select('Especialidad')
-                ->select('Direccion')
-                ->select('Celular')
-                ->select('Ruta')
-                ->get('medicos');
+        
+
+        $this->db->select('*');
+        $this->db->from('medicos');
+        $this->db->join('usuarios as u1',' u1.Usuario=medicos.NombreMedico','left');
+        $this->db->join('usuarios as u2','u2.idNombre=medicos.IdMedico','left');
+            $query = $this->db->get();
+
 
         if ($query->num_rows()>0) {
             foreach ($query->result_array() as $key) {
@@ -25,6 +24,8 @@ class medicos_model extends CI_Model {
                 $json[$i]['DIRECCION'] = $key['Direccion'];
                 $json[$i]['CELULAR'] = $key['Celular'];
                 $json[$i]['VISITADOR'] = $this->nombreVisitador((string)$key['Ruta']);
+                $json[$i]['USUARIO'] = $key['Usuario'];
+                $json[$i]['CONTRASEÑA'] = $key['Password'];
                 $i++;
             }
         }else {
@@ -34,6 +35,8 @@ class medicos_model extends CI_Model {
             $json[$i]['DIRECCION'] = '';
             $json[$i]['TELFCLINICA'] = '';
             $json[$i]['VISITADOR'] = '';
+            $json[$i]['USUARIO'] = '';
+            $json[$i]['CONTRASEÑA'] = '';
         }
         echo json_encode($json);
     }

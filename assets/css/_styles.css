@@ -155,7 +155,7 @@
 /*FIN ESTILO DATATABLE*/
 
 /*INPUT*/
-#buscar, #txtBuscar, #buscar3M, #txtBuscarMed, #txtBuscarFarm, #txtBuscarRpt {
+#buscar, #txtBuscar, #txtCantidad, #txtFechaNewFact, #txtCLienteNewFact, #txtContactNewFact, #buscar3M, #txtBuscarMed, #txtBuscarTransaccion, #txtBuscarFarm, #txtBuscarRpt {
   height: 42px;
   width: 100%;
   padding: 0px 10px;
@@ -424,23 +424,6 @@
       margin: 6px 0 12px 16px;
   }
 
-.date-picker-wrapper .month-wrapper table .week-name > th {
-  font-size: 10px
-}
-
-.date-picker-wrapper {
-  z-index: 50000;
-  position: absolute;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-}
-
-.month > select {
-  width: auto !important;
-}
-
 @media only screen and (max-width: 1024px) {
   .commmit-1 {
     width: 90%;
@@ -449,3 +432,5 @@
     position: relative;
   }
 }
+
+

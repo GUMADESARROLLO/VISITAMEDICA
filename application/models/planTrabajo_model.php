@@ -80,6 +80,8 @@ class planTrabajo_model extends CI_Model {
         $diaInicio="Monday";
         $diaFin="Sunday";
 
+        echo $F1_;
+
         //OBTENIENDO FECHA ACTUAL
         $F_ACTUAL = date("Y-m-d");
         $F_ACTUAL = strtotime($F_ACTUAL);
