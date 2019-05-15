@@ -7,8 +7,8 @@
 	
 	<div class="divider"></div><br>
 	<div class="row">		
-		<input type="text" name="date-range200" id="date-range200" style="display: none">
-		<input type="text" name="date-range201" id="date-range201" style="display: none">
+		<input type="text" name="date-range200" id="date-range200" style="display: none" >
+		<input type="text" name="date-range201" id="date-range201" style="display: none" >
 	</div>
 	<div class="row">
 		<div class="col s12 m12">
