@@ -18,11 +18,12 @@ public function NomUsuarioActual($iduser){
 
 
 
-    public function listandoProductos() {
+    public function listandoProductos($data) {
         $temp=array();
         $i=0;
 
         $this->db->from("articulos");
+        $this->db->LIKE("DESCRIPCION",$data['buscar'],"after");
         $this->db->order_by("articulos.DESCRIPCION asc");
         $query = $this->db->get();
        
@@ -30,8 +31,9 @@ public function NomUsuarioActual($iduser){
         if ($query->num_rows()>0) {
             foreach ($query->result_array() as $key) {
                 $temp[] = array(
-                    'value' => $key['ARTICULO'],
-                    'desc' => $key['ARTICULO']." - ". $key['DESCRIPCION']
+                    'desc' => $key['DESCRIPCION'],
+                    'cod' => $key['ARTICULO'],
+                    'value' => $key['ARTICULO']." - ". $key['DESCRIPCION']
                 );
             }
             echo json_encode($temp);

@@ -38,14 +38,14 @@
 					</div><br>
 
 					<div class="right col s12 m3" >
-						<a href="#MAddVentaNueva" onclick="listandoProductos()" class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin-top: 10px">Nueva venta</a>
+						<a href="#MAddVentaNueva"  class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin-top: 10px">Nueva transacción</a>
 					</div>
 					<div class="col s12 m12">
 			            <table id="tblVtsTerceros" class="display" cellspacing="0" width="100%">       
 			            	<thead>
                                 <tr>
-                                    <th>FECHA VENTA</th>
-					                <th>CODIGO VENTA</th>
+                                    <th>FECHA</th>
+					                <th>CODIGO</th>
 					                <th>CLIENTE</th>
 					            	<th>CONTACTO</th>
 					            	<th>ESTADO</th>
@@ -102,14 +102,18 @@
 		    	<div class="col s12 m7">
 		    		<div class="Seleccione el Producto">Seleccione el Producto</div>
 		    		<div class="input-group">
-						<select class="browser-default" id="productos" readonly="readonly">
-						</select>
+						<input  id="productos"/>
+						<div class="row" style="position: absolute;margin-top: 40px" >
+						<div class="col s12 m7" >
+							<div  id="result" ></div>
+						</div>
+					</div>
 		  			</div>
 		    	</div>
 		    	<div class="col s12 m2">
 		    		<div class="Seleccione el Producto">Cantidad</div>
 		    		<div class="input-group">
-		  				<input type="text" class="form-control" id="txtCantidad" placeholder="Cantidad">
+		  				<input type="text" class="form-control" id="txtCantidad" placeholder="Cantidad"/>
 		  			</div>
 		    	</div>
 		    	<div class="col s12 m3" style="margin-top: 23px">
@@ -149,7 +153,7 @@
   -->
 <div id="ModalVerDetVnts" class="modal">
 	<div class="modal-content">
-	    <label class="totales">VISUALIZAR DETALLES DE VENTAS</label>
+	    <label class="totales">VISUALIZAR DETALLES DE TRANSACCIONES</label>
 	    <div class="divider"></div><br>
 	    <div class="row">
 	    	<div class="col s12 m4">

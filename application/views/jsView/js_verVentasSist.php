@@ -44,7 +44,7 @@ $(document).ready(function() {
   );
   $("#tblventasDelSistema_filter").hide();
  //listandoUsuarios();
- LlenarDTVentasDelSistema();
+ //LlenarDTVentasDelSistema();
  
  });
 

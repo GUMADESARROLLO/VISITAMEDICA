@@ -92,7 +92,7 @@ $(document).ready(function() {
   inicializaControlFecha();
 
 
-  LlenarDTVentasTerceros();
+ // LlenarDTVentasTerceros();
   showNameUser();
 
 
@@ -203,14 +203,42 @@ function showNameUser(){
 
 
 
-function listandoProductos() {
+/*function listandoProductos() {
     $.getJSON("listandoProductos", function(data) {
      $("#productos").append('<option value="NULL"></option>');
     $.each(data, function(i, item) {
      $("#productos").append('<option value="' + item['value'] + '">' +item['desc'] + '</option>');
     });
   });
-}
+}*/
+
+
+$("#productos").autocomplete({
+  appendTo: "#result",
+  source : function(data, cb){
+    console.log(data);
+    $.ajax({
+      url:"listandoProductos",
+      type: "post",
+      dataType: "json",
+      cache: false,
+      async: false,
+      data: {data: data.term},
+      success: function(res){  
+
+
+        cb(res);
+
+      }
+
+    });
+    
+  }
+});
+
+
+
+
 
 
 
@@ -218,10 +246,11 @@ function listandoProductos() {
 $("#addProdDet").on('click', function(){
 
   
-  var partesIdProd = $("#productos option:selected").html().split(' - ');
+  var partesIdProd = $("#productos").val().split(' - ');
   var idProd = partesIdProd[0];
   var descProd =partesIdProd[1];
   var cantProd = $("#txtCantidad").val();
+  console.log(partesIdProd+","+idProd+","+descProd+","+cantProd);
 
   Objtable = $("#tblDetVntTerceros").DataTable();
 
@@ -237,7 +266,7 @@ $("#addProdDet").on('click', function(){
           '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
       ] ).draw( false );
     }
-
+    $("#productos").val("");
    
 })
 
@@ -249,6 +278,7 @@ $("#addNewVnt").on('click', function(){
   var clienteVnts = $("#txtCLienteNewFact").val();
   var contVnt = $("#txtContactNewFact").val();
   var idRegVnts;
+
   
 
    Objtable1 = $("#tblDetVntTerceros").DataTable();
@@ -286,6 +316,7 @@ $("#addNewVnt").on('click', function(){
 
           Objtable1.rows().remove().draw( false ); 
             $("#tblDetVntTerceros").DataTable();
+
 
             LlenarDTVentasTerceros();
         }
