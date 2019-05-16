@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/fullcalendar.css" media="screen,projection">
     <!--CSS FULL CALENDAR-->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/daterangepicker.min.css">
+
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui.min.css">
 </head>
 <body>
 	<header class="demo-header mdl-layout__header">

@@ -33,7 +33,9 @@ class VentasTerceros_controller extends CI_Controller {
     }
 
 	public function listandoProductos(){
-		$this->ventasTerceros_model->listandoProductos();
+		$data = array('buscar' => $this->input->post('data'));
+	
+		$this->ventasTerceros_model->listandoProductos($data);
     }
 
 	  public function UltimoRegistroVnts(){
